@@ -5,16 +5,19 @@ export const profile = {
   email: 'disaster.woman007@gmail.com',
   phone: '+7 951 661 6636',
   github: 'https://github.com/DisasterWoman',
-  headline: 'Frontend developer for immersive SaaS interfaces.',
+  headline: 'Frontend developer for immersive interfaces.',
   summary:
     'React and TypeScript developer with commercial product experience, strong UI ownership and a focused Three.js portfolio direction for data-heavy planning, analytics and AI-powered workflows.',
 };
 
+export const mailHref = `mailto:${profile.email}?subject=Frontend%20Developer%20React%20Three.js%20Opportunity`;
+
 export const navItems = [
-  { label: 'Signal', href: '#signal' },
-  { label: 'Impact', href: '#impact' },
-  { label: 'Stack', href: '#stack' },
-  { label: 'Contact', href: '#contact' },
+  { label: '3D', href: '/3d' },
+  { label: 'Signal', href: '/#signal' },
+  { label: 'Impact', href: '/#impact' },
+  { label: 'Stack', href: '/#stack' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export const metrics = [
