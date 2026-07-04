@@ -260,6 +260,315 @@ h3 {
   background: rgba(255, 255, 255, 0.08);
 }
 
+button.button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.landingHero {
+  min-height: calc(100vh - 74px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(440px, 0.88fr);
+  align-items: stretch;
+  gap: 28px;
+  padding: 46px 0 76px;
+}
+
+.landingHeroCopy,
+.featured3d,
+.landingCard,
+.techGroup,
+.launchSequence,
+.landingContact {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(11, 18, 37, 0.88), rgba(11, 18, 37, 0.54)),
+    radial-gradient(circle at 82% 18%, rgba(42, 248, 255, 0.12), transparent 34%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px) saturate(1.18);
+}
+
+.landingHeroCopy {
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 22px;
+  padding: clamp(26px, 4vw, 54px);
+}
+
+.landingHeroCopy h1 {
+  max-width: 620px;
+  font-size: clamp(3rem, 6vw, 5.35rem);
+}
+
+.landingHeroCopy > p:not(.kicker) {
+  max-width: 610px;
+  color: rgba(247, 251, 255, 0.78);
+  font-size: 1.08rem;
+  line-height: 1.72;
+}
+
+.landingBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.landingBadges span,
+.systemChecks span,
+.techGroup span {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: 0 12px;
+  color: rgba(247, 251, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.commandScene {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.18);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 58% 42%, rgba(42, 248, 255, 0.22), transparent 28%),
+    radial-gradient(circle at 78% 14%, rgba(217, 255, 69, 0.11), transparent 24%),
+    linear-gradient(135deg, rgba(5, 8, 17, 0.96), rgba(9, 22, 42, 0.72));
+  box-shadow: inset 0 0 80px rgba(42, 248, 255, 0.08), var(--shadow);
+}
+
+.commandScene::before,
+.solarPreviewButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.036) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.commandScene canvas,
+.solarPreviewScene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.featured3d {
+  display: grid;
+  grid-template-columns: minmax(0, 0.74fr) minmax(360px, 0.66fr);
+  gap: 28px;
+  align-items: stretch;
+  margin: 0 0 var(--section-y);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.featured3d > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.featured3d p:not(.kicker),
+.launchSequence p,
+.landingContact p,
+.landingSectionIntro p:not(.kicker),
+.landingCard p,
+.techGroup p {
+  color: rgba(247, 251, 255, 0.76);
+  line-height: 1.68;
+}
+
+.solarPreviewButton {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.22);
+  border-radius: var(--radius);
+  padding: 0;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 38% 50%, rgba(42, 248, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 78% 22%, rgba(255, 75, 183, 0.12), transparent 30%),
+    #060913;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.solarPreviewButton:hover {
+  transform: translateY(-3px);
+  border-color: rgba(217, 255, 69, 0.8);
+  box-shadow: 0 0 0 1px rgba(217, 255, 69, 0.34), var(--shadow);
+}
+
+.solarPreviewScene {
+  position: absolute;
+  inset: 0;
+}
+
+.landingSection {
+  padding: 0 0 var(--section-y);
+}
+
+.landingSectionIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.landingCardGrid,
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.landingCard,
+.techGroup {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.landingCard h3,
+.techGroup h3 {
+  font-size: 1.42rem;
+}
+
+.landingCard.compact {
+  min-height: 190px;
+}
+
+.landingCard::before,
+.techGroup::before {
+  content: "";
+  width: 38px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lime), var(--cyan));
+}
+
+.techGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.techGroup {
+  min-height: 260px;
+}
+
+.techGroup div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techGroup button {
+  width: fit-content;
+  margin-top: auto;
+  border: 1px solid rgba(217, 255, 69, 0.48);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  cursor: pointer;
+  color: var(--lime);
+  background: rgba(217, 255, 69, 0.08);
+  font: inherit;
+  font-weight: 900;
+}
+
+.launchSequence {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(320px, 0.52fr);
+  gap: 26px;
+  align-items: center;
+  margin-bottom: var(--section-y);
+  padding: clamp(26px, 4vw, 48px);
+}
+
+.launchSequence::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: -10%;
+  width: 44%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(247, 251, 255, 0.9), rgba(42, 248, 255, 0.06));
+  box-shadow: 0 0 34px rgba(42, 248, 255, 0.7);
+  transform: rotate(-16deg);
+  animation: cometDrift 8s linear infinite;
+}
+
+.launchSequence > div:first-child,
+.landingContact > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.systemChecks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.systemChecks span {
+  justify-content: space-between;
+  min-height: 48px;
+}
+
+.systemChecks span::after {
+  content: "online";
+  color: var(--lime);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.landingContact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.routeVeil {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(42, 248, 255, 0.35), transparent 22%),
+    #060913;
+  transform: scale(0.92);
+  transition: opacity 420ms ease, transform 520ms ease;
+}
+
+.routeVeil.isActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .button:hover,
 .contactLinks a:hover {
   transform: translateY(-2px);
@@ -1332,6 +1641,9 @@ h3 {
   }
 
   .hero,
+  .landingHero,
+  .featured3d,
+  .launchSequence,
   .showcaseSection,
   .spaceSection,
   .missionSection,
@@ -1346,6 +1658,33 @@ h3 {
   .hero {
     min-height: auto;
     padding-top: 42px;
+  }
+
+  .landingHero {
+    min-height: auto;
+    padding: 34px 0 64px;
+  }
+
+  .landingHeroCopy {
+    min-height: auto;
+  }
+
+  .commandScene {
+    min-height: 520px;
+  }
+
+  .featured3d {
+    margin-bottom: 72px;
+  }
+
+  .landingCardGrid,
+  .techGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landingContact {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .heroCopy {
@@ -1452,6 +1791,55 @@ h3 {
 
   h2 {
     font-size: clamp(2rem, 10vw, 3.1rem);
+  }
+
+  .landingHero {
+    gap: 14px;
+    padding-top: 24px;
+  }
+
+  .landingHeroCopy,
+  .featured3d,
+  .landingCard,
+  .techGroup,
+  .launchSequence,
+  .landingContact {
+    padding: 18px;
+  }
+
+  .landingHeroCopy h1 {
+    font-size: clamp(2.7rem, 13vw, 4.1rem);
+  }
+
+  .landingHeroCopy > p:not(.kicker) {
+    font-size: 1rem;
+  }
+
+  .commandScene {
+    min-height: 390px;
+  }
+
+  .solarPreviewButton {
+    min-height: 260px;
+  }
+
+  .landingSection,
+  .featured3d,
+  .launchSequence {
+    margin-bottom: 0;
+    padding-bottom: 64px;
+  }
+
+  .landingCardGrid,
+  .techGrid,
+  .systemChecks {
+    grid-template-columns: 1fr;
+  }
+
+  .landingCard,
+  .landingCard.compact,
+  .techGroup {
+    min-height: 172px;
   }
 
   .lead,
