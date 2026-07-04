@@ -657,6 +657,651 @@ h3 {
   transition: transform 180ms ease, filter 180ms ease;
 }
 
+.spaceSection {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+  padding: var(--section-y) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.spaceIntro {
+  display: grid;
+  gap: 16px;
+}
+
+.spaceIntro p:not(.kicker) {
+  color: rgba(247, 251, 255, 0.8);
+  line-height: 1.65;
+}
+
+.planetGrid,
+.missionPanel,
+.signalDashboard,
+.caseGrid,
+.spaceStack,
+.planetDetail {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(6, 9, 19, 0.74);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.planetGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.planetCard {
+  min-height: 150px;
+  display: grid;
+  gap: 10px;
+  align-content: end;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: 14px;
+  color: var(--paper);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  text-align: left;
+  font: inherit;
+}
+
+.planetCard:hover,
+.planetCard.isActive {
+  border-color: rgba(217, 255, 69, 0.66);
+  background: linear-gradient(145deg, rgba(42, 248, 255, 0.12), rgba(217, 255, 69, 0.06));
+  transform: translateY(-4px) rotateX(4deg);
+}
+
+.planetOrb {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.9), transparent 18%),
+    radial-gradient(circle at 45% 45%, var(--planet-color), rgba(0, 0, 0, 0.65));
+  box-shadow: 0 0 24px color-mix(in srgb, var(--planet-color), transparent 40%);
+}
+
+.planetCard strong,
+.planetDetail h3 {
+  font-size: 1.15rem;
+}
+
+.planetCard small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.planetDetail {
+  grid-column: 2;
+}
+
+.planetDetail dl,
+.missionPanel dl {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.planetDetail dl div,
+.missionPanel dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.planetDetail dt,
+.missionPanel dt {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.planetDetail dd,
+.missionPanel dd {
+  margin: 0;
+  color: var(--paper);
+  font-weight: 950;
+}
+
+.missionSection {
+  grid-template-columns: minmax(260px, 0.42fr) minmax(320px, 0.55fr);
+}
+
+.missionRoute {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 14px;
+  align-items: center;
+  font-weight: 950;
+}
+
+.missionRoute i {
+  height: 2px;
+  display: block;
+  background: linear-gradient(90deg, var(--cyan), var(--lime), var(--pink));
+  box-shadow: 0 0 18px rgba(42, 248, 255, 0.38);
+}
+
+.launchButton {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0 18px;
+  color: #071016;
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.signalDashboard,
+.caseGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.signalReadout,
+.caseMetric {
+  min-width: 0;
+  min-height: 116px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.signalReadout span,
+.caseMetric span {
+  min-height: 44px;
+  display: flex;
+  align-items: flex-start;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.signalReadout strong,
+.caseMetric strong {
+  min-width: 0;
+  color: var(--paper);
+  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.signalReadout small {
+  width: max-content;
+  max-width: 100%;
+  border-radius: var(--radius);
+  padding: 6px 9px;
+  color: #071016;
+  background: var(--cyan);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.spaceStack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.spaceStack span {
+  min-height: 96px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 950;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.spaceStack span:hover {
+  border-color: rgba(42, 248, 255, 0.64);
+  transform: translateY(-3px) rotateX(5deg);
+}
+
+.spaceHero {
+  min-height: calc(74vh - 74px);
+  display: flex;
+  align-items: center;
+  padding: 54px 0 64px;
+}
+
+.spaceHero .showcaseCopy {
+  width: min(760px, 100%);
+  background:
+    linear-gradient(90deg, rgba(6, 9, 19, 0.86), rgba(6, 9, 19, 0.56)),
+    radial-gradient(circle at 78% 20%, rgba(42, 248, 255, 0.16), transparent 36%);
+}
+
+.missionControl {
+  min-height: 760px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: stretch;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(120deg, rgba(6, 9, 19, 0.92), rgba(10, 20, 38, 0.72)),
+    radial-gradient(circle at 64% 38%, rgba(42, 248, 255, 0.2), transparent 36%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.missionControl.hasSelection {
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 0.34fr);
+}
+
+.missionScene {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 54% 44%, rgba(42, 248, 255, 0.18), transparent 38%),
+    radial-gradient(circle at 82% 22%, rgba(255, 75, 183, 0.13), transparent 28%),
+    #030711;
+}
+
+.missionScene .complexCanvas {
+  position: absolute;
+  inset: 0;
+}
+
+.controlPanel,
+.launchPanel,
+.signalConsole,
+.caseCards,
+.constellationStack,
+.spaceContact {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(6, 9, 19, 0.78);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.controlPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+
+.controlPanel dl,
+.launchPanel dl,
+.archiveCard dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.controlPanel dl div,
+.launchPanel dl div,
+.archiveCard dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.controlPanel dt,
+.launchPanel dt,
+.archiveCard dt {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.controlPanel dd,
+.launchPanel dd,
+.archiveCard dd {
+  margin: 0;
+  color: var(--paper);
+  font-weight: 950;
+  text-align: right;
+}
+
+.controlActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.controlActions button,
+.signalControls button {
+  min-height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.controlActions button:last-child,
+.signalControls button {
+  color: #071016;
+  border: 0;
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+}
+
+.archiveCarousel {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.carouselControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.carouselControls button {
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: 0 14px;
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.embla {
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px 10px 10px;
+  margin: -14px -10px -10px;
+}
+
+.emblaTrack {
+  display: flex;
+  gap: 14px;
+  touch-action: pan-y pinch-zoom;
+}
+
+.emblaSlide {
+  min-width: 0;
+  flex: 0 0 calc((100% - 28px) / 3);
+}
+
+.archiveCard {
+  width: 100%;
+  min-height: 330px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  color: var(--paper);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+    radial-gradient(circle at 70% 24%, color-mix(in srgb, var(--planet-color, #2af8ff), transparent 72%), transparent 34%);
+  box-shadow: var(--shadow);
+  transform-style: preserve-3d;
+  transition: transform 180ms ease, border-color 180ms ease;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.archiveCard:hover,
+.archiveCard.isActive {
+  border-color: rgba(217, 255, 69, 0.7);
+  box-shadow:
+    0 0 0 2px rgba(217, 255, 69, 0.56),
+    var(--shadow);
+  transform: translateY(-3px) rotateX(4deg) rotateY(-3deg);
+}
+
+.archiveCard > span {
+  width: max-content;
+  border-radius: var(--radius);
+  padding: 5px 8px;
+  color: #071016;
+  background: var(--lime);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.archiveCard i {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.92), transparent 16%),
+    radial-gradient(circle at 48% 46%, var(--planet-color), rgba(0, 0, 0, 0.72));
+  box-shadow: 0 0 34px color-mix(in srgb, var(--planet-color), transparent 34%);
+}
+
+.archiveCard strong {
+  font-size: 1.35rem;
+}
+
+.archiveCard em,
+.archiveCard small {
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 850;
+}
+
+.launchSection {
+  grid-template-columns: minmax(260px, 0.42fr) minmax(320px, 0.58fr);
+}
+
+.progressTrack {
+  height: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressTrack span {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--lime));
+  box-shadow: 0 0 18px rgba(42, 248, 255, 0.45);
+  transition: width 160ms ease;
+}
+
+.launchStatus {
+  margin-top: 12px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.signalConsole {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(240px, 0.42fr) minmax(300px, 1fr);
+  gap: 18px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.radar {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.32);
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle, rgba(42, 248, 255, 0.18) 0 1px, transparent 1px 34px),
+    radial-gradient(circle, rgba(42, 248, 255, 0.18), transparent 68%);
+}
+
+.radar span {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 45%;
+  height: 2px;
+  transform-origin: left center;
+  background: var(--lime);
+  animation: radarSweep 3.6s linear infinite;
+}
+
+.signalControls {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.signalControls button {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.signalControls label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.signalControls input[type="range"] {
+  width: 100%;
+  accent-color: var(--lime);
+}
+
+.signalControls input[type="checkbox"] {
+  accent-color: var(--lime);
+}
+
+.journeyList,
+.caseCards,
+.constellationStack {
+  display: grid;
+  gap: 14px;
+}
+
+.journeyList article,
+.caseCards article,
+.constellationStack article {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.journeyList article {
+  display: grid;
+  grid-template-columns: 64px minmax(160px, 0.38fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.journeyList span {
+  color: var(--lime);
+  font-weight: 950;
+}
+
+.journeyList p,
+.caseCards p,
+.constellationStack p,
+.spaceContact p {
+  color: rgba(247, 251, 255, 0.78);
+  line-height: 1.6;
+}
+
+.flowDiagram {
+  border: 1px solid rgba(42, 248, 255, 0.28);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  color: var(--lime);
+  background: rgba(42, 248, 255, 0.06);
+  font-weight: 950;
+}
+
+.constellationStack {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.constellationStack article {
+  min-height: 170px;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.constellationStack article:hover {
+  border-color: rgba(42, 248, 255, 0.62);
+  transform: translateY(-4px) rotateX(4deg);
+}
+
+.spaceContact {
+  display: flex;
+  justify-content: space-between;
+  gap: 26px;
+  align-items: center;
+  margin: var(--section-y) 0 58px;
+  position: relative;
+  overflow: hidden;
+}
+
+.spaceContact::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: -12%;
+  width: 42%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), rgba(42, 248, 255, 0.1));
+  box-shadow: 0 0 28px rgba(42, 248, 255, 0.55);
+  transform: rotate(-18deg);
+  animation: cometDrift 8s linear infinite;
+}
+
+@keyframes radarSweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cometDrift {
+  from {
+    translate: 80% 0;
+  }
+
+  to {
+    translate: -260% 0;
+  }
+}
+
 @keyframes pulseBar {
   0%,
   100% {
@@ -688,6 +1333,10 @@ h3 {
 
   .hero,
   .showcaseSection,
+  .spaceSection,
+  .missionSection,
+  .missionControl,
+  .launchSection,
   .contentSection,
   .footer,
   .experienceItem {
@@ -715,6 +1364,47 @@ h3 {
 
   .complexCanvas {
     min-height: 520px;
+  }
+
+  .planetGrid,
+  .signalDashboard,
+  .caseGrid,
+  .spaceStack,
+  .constellationStack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .missionControl {
+    min-height: auto;
+  }
+
+  .missionControl.hasSelection {
+    grid-template-columns: 1fr;
+  }
+
+  .missionScene {
+    min-height: 560px;
+  }
+
+  .emblaSlide {
+    flex-basis: calc((100% - 14px) / 2);
+  }
+
+  .signalConsole {
+    grid-template-columns: 1fr;
+  }
+
+  .radar {
+    width: min(260px, 100%);
+  }
+
+  .spaceContact {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .planetDetail {
+    grid-column: auto;
   }
 
   .signalCards {
@@ -797,12 +1487,51 @@ h3 {
 
   .contentSection,
   .showcaseSection,
+  .spaceSection,
   .footer {
     padding: 72px 0;
   }
 
   .complexCanvas {
     min-height: 420px;
+  }
+
+  .planetGrid,
+  .signalDashboard,
+  .caseGrid,
+  .spaceStack,
+  .constellationStack {
+    grid-template-columns: 1fr;
+  }
+
+  .planetCard,
+  .archiveCard,
+  .signalReadout,
+  .caseMetric,
+  .spaceStack span {
+    min-height: 104px;
+  }
+
+  .missionControl {
+    padding: 12px;
+  }
+
+  .missionScene {
+    min-height: 430px;
+  }
+
+  .emblaSlide {
+    flex-basis: 100%;
+  }
+
+  .controlActions,
+  .journeyList article {
+    grid-template-columns: 1fr;
+  }
+
+  .spaceHero {
+    min-height: auto;
+    padding: 42px 0 56px;
   }
 
   .experienceRail {
