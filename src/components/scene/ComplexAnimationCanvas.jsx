@@ -270,6 +270,7 @@ export default function ComplexAnimationCanvas() {
     const asteroidBelt = makeAsteroidBelt(760, 3.95, 4.48);
     system.add(asteroidBelt);
     const orbitLines = [];
+    let moonTarget = null;
 
     const planets = planetSpecs.map((spec, index) => {
       const orbit = makeOrbit(spec.radius, index % 2 ? '#b4f6ff' : '#fff06a');
@@ -311,6 +312,7 @@ export default function ComplexAnimationCanvas() {
         moon.position.x = 0.56;
         moonPivot.add(moon);
         pivot.add(moonPivot);
+        moonTarget = { name: 'Moon', radius: spec.radius + 0.56, size: 0.07, pivot: moonPivot, planet: moon, moonPivot: null, speed: spec.speed, baseY: spec.y };
       }
 
       if (spec.rings) {
@@ -328,8 +330,13 @@ export default function ComplexAnimationCanvas() {
         pivot.add(rings);
       }
 
-      return { name: spec.name, radius: spec.radius, pivot, planet, moonPivot, speed: spec.speed, baseY: spec.y };
+      return { name: spec.name, radius: spec.radius, size: spec.size, pivot, planet, moonPivot, speed: spec.speed, baseY: spec.y };
     });
+    const selectableObjects = [
+      { name: 'Sun', radius: 0, size: 0.9, pivot: system, planet: sun, moonPivot: null, speed: 0, baseY: 0 },
+      ...planets,
+      moonTarget,
+    ].filter(Boolean);
 
     const probe = new THREE.Group();
     const probeBody = new THREE.Mesh(
@@ -374,26 +381,70 @@ export default function ComplexAnimationCanvas() {
       lookAt: new THREE.Vector3(0.2, 0, 0),
     };
     const cameraLook = new THREE.Vector3(0.2, 0, 0);
+    const cameraSpherical = new THREE.Spherical();
+    const cameraOffset = new THREE.Vector3();
+    const syncCameraSpherical = () => {
+      cameraOffset.copy(cameraGoal.position).sub(cameraGoal.lookAt);
+      cameraSpherical.setFromVector3(cameraOffset);
+    };
+    const applyManualCamera = () => {
+      cameraSpherical.phi = Math.max(0.36, Math.min(Math.PI - 0.28, cameraSpherical.phi));
+      cameraSpherical.radius = Math.max(2.4, Math.min(22, cameraSpherical.radius));
+      cameraGoal.position.copy(cameraGoal.lookAt).add(cameraOffset.setFromSpherical(cameraSpherical));
+    };
+    syncCameraSpherical();
     let launchStart = -100;
     let orbitSpeedMultiplier = 1;
     let cinematicEnabled = true;
     let hoveredPlanet = null;
+    let focusedPlanet = null;
     let frameId = 0;
+    let isDragging = false;
+    let dragMoved = false;
+    let suppressClick = false;
+    let lastPointerX = 0;
+    let lastPointerY = 0;
+
+    const planetWorldPosition = new THREE.Vector3();
+    const focusDirection = new THREE.Vector3();
+    const focusOffset = new THREE.Vector3();
+
+    const updateFocusedCameraGoal = (planet) => {
+      if (!planet) return;
+      planet.planet.updateWorldMatrix(true, false);
+      planet.planet.getWorldPosition(planetWorldPosition);
+      cameraGoal.lookAt.copy(planetWorldPosition);
+
+      focusDirection.set(planetWorldPosition.x, 0, planetWorldPosition.z);
+      if (focusDirection.lengthSq() < 0.001) focusDirection.set(1, 0, 0);
+      focusDirection.normalize();
+
+      const sideDistance = Math.max(1.15, planet.size * 3.5);
+      const lift = Math.max(0.72, planet.size * 2.2);
+      focusOffset
+        .copy(focusDirection)
+        .multiplyScalar(sideDistance)
+        .add(new THREE.Vector3(0, lift, 1.45 + planet.size * 2.2));
+      cameraGoal.position.copy(planetWorldPosition).add(focusOffset);
+    };
 
     const setCameraToPlanet = (planet) => {
       if (!planet) return;
-      cameraGoal.position.set(planet.radius + 0.9, 1.7, 3.2);
-      cameraGoal.lookAt.set(planet.radius, planet.baseY, 0);
+      focusedPlanet = planet;
+      updateFocusedCameraGoal(planet);
+      syncCameraSpherical();
     };
 
     const focusPlanet = (event) => {
-      const planet = planets.find((item) => item.name === event.detail?.planet);
+      const planet = selectableObjects.find((item) => item.name === event.detail?.planet);
       setCameraToPlanet(planet);
     };
 
     const resetCamera = () => {
+      focusedPlanet = null;
       cameraGoal.position.set(0.3, 5.8, 15.6);
       cameraGoal.lookAt.set(0.2, 0, 0);
+      syncCameraSpherical();
     };
 
     const launchProbe = () => {
@@ -423,18 +474,21 @@ export default function ComplexAnimationCanvas() {
     };
 
     const updatePointer = (event) => {
+      if (isDragging) return;
       const rect = renderer.domElement.getBoundingClientRect();
       pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       pointer.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
       raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(planets.map((item) => item.planet), false);
+      const intersects = raycaster.intersectObjects(selectableObjects.map((item) => item.planet), false);
       const nextPlanet = intersects.length
-        ? planets.find((item) => item.planet === intersects[0].object)
+        ? selectableObjects.find((item) => item.planet === intersects[0].object)
         : null;
 
       if (hoveredPlanet && hoveredPlanet !== nextPlanet) {
         hoveredPlanet.planet.scale.setScalar(1);
-        hoveredPlanet.planet.material.emissiveIntensity = 0.04;
+        if ('emissiveIntensity' in hoveredPlanet.planet.material) {
+          hoveredPlanet.planet.material.emissiveIntensity = hoveredPlanet.name === 'Sun' ? 1 : 0.04;
+        }
       }
 
       hoveredPlanet = nextPlanet;
@@ -442,14 +496,61 @@ export default function ComplexAnimationCanvas() {
 
       if (hoveredPlanet) {
         hoveredPlanet.planet.scale.setScalar(1.16);
-        hoveredPlanet.planet.material.emissiveIntensity = 0.18;
+        if ('emissiveIntensity' in hoveredPlanet.planet.material) {
+          hoveredPlanet.planet.material.emissiveIntensity = hoveredPlanet.name === 'Sun' ? 1.35 : 0.18;
+        }
       }
     };
 
     const clickPlanet = () => {
+      if (suppressClick) {
+        suppressClick = false;
+        return;
+      }
       if (!hoveredPlanet) return;
       setCameraToPlanet(hoveredPlanet);
       window.dispatchEvent(new CustomEvent('space-selected-planet', { detail: { planet: hoveredPlanet.name } }));
+    };
+
+    const startDrag = (event) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      isDragging = true;
+      focusedPlanet = null;
+      dragMoved = false;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+      renderer.domElement.style.cursor = 'grabbing';
+      renderer.domElement.setPointerCapture?.(event.pointerId);
+    };
+
+    const dragCamera = (event) => {
+      if (!isDragging) {
+        updatePointer(event);
+        return;
+      }
+      const dx = event.clientX - lastPointerX;
+      const dy = event.clientY - lastPointerY;
+      if (Math.abs(dx) + Math.abs(dy) > 3) dragMoved = true;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+      cameraSpherical.theta -= dx * 0.006;
+      cameraSpherical.phi -= dy * 0.005;
+      applyManualCamera();
+    };
+
+    const stopDrag = (event) => {
+      if (!isDragging) return;
+      isDragging = false;
+      suppressClick = dragMoved;
+      renderer.domElement.releasePointerCapture?.(event.pointerId);
+      renderer.domElement.style.cursor = hoveredPlanet ? 'pointer' : 'grab';
+    };
+
+    const zoomCamera = (event) => {
+      event.preventDefault();
+      const zoomAmount = event.deltaY * 0.006;
+      cameraSpherical.radius += zoomAmount;
+      applyManualCamera();
     };
 
     const resize = () => {
@@ -501,6 +602,8 @@ export default function ComplexAnimationCanvas() {
         if (progress >= 1) probe.visible = false;
       }
 
+      if (focusedPlanet) updateFocusedCameraGoal(focusedPlanet);
+
       const idleOffset = cinematicEnabled
         ? new THREE.Vector3(Math.sin(elapsed * 0.16) * 0.22, Math.sin(elapsed * 0.21) * 0.12, 0)
         : new THREE.Vector3(0, 0, 0);
@@ -522,7 +625,13 @@ export default function ComplexAnimationCanvas() {
     window.addEventListener('space-toggle-cinematic', toggleCinematic);
     window.addEventListener('space-set-star-density', setStarDensity);
     renderer.domElement.addEventListener('pointermove', updatePointer);
+    renderer.domElement.addEventListener('pointerdown', startDrag);
+    renderer.domElement.addEventListener('pointermove', dragCamera);
+    renderer.domElement.addEventListener('pointerup', stopDrag);
+    renderer.domElement.addEventListener('pointercancel', stopDrag);
+    renderer.domElement.addEventListener('wheel', zoomCamera, { passive: false });
     renderer.domElement.addEventListener('click', clickPlanet);
+    renderer.domElement.style.touchAction = 'none';
 
     return () => {
       cancelAnimationFrame(frameId);
@@ -535,6 +644,11 @@ export default function ComplexAnimationCanvas() {
       window.removeEventListener('space-toggle-cinematic', toggleCinematic);
       window.removeEventListener('space-set-star-density', setStarDensity);
       renderer.domElement.removeEventListener('pointermove', updatePointer);
+      renderer.domElement.removeEventListener('pointerdown', startDrag);
+      renderer.domElement.removeEventListener('pointermove', dragCamera);
+      renderer.domElement.removeEventListener('pointerup', stopDrag);
+      renderer.domElement.removeEventListener('pointercancel', stopDrag);
+      renderer.domElement.removeEventListener('wheel', zoomCamera);
       renderer.domElement.removeEventListener('click', clickPlanet);
       mount.removeChild(renderer.domElement);
       renderer.dispose();

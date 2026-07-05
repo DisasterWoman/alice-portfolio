@@ -22,9 +22,16 @@ function makeTextSprite(text) {
   context.fillText(text, 128, 46);
 
   const texture = new THREE.CanvasTexture(canvas);
-  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.92 });
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true,
+    opacity: 0.92,
+    depthTest: false,
+    depthWrite: false,
+  });
   const sprite = new THREE.Sprite(material);
-  sprite.scale.set(1.52, 0.57, 1);
+  sprite.scale.set(1.16, 0.44, 1);
+  sprite.renderOrder = 20;
   return sprite;
 }
 
@@ -39,8 +46,8 @@ export default function CommandCenterScene() {
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x060913, 0.048);
 
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0.2, 2.3, 8.4);
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(0.2, 2.42, 9.4);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -49,7 +56,7 @@ export default function CommandCenterScene() {
     mount.appendChild(renderer.domElement);
 
     const root = new THREE.Group();
-    root.scale.setScalar(0.86);
+    root.scale.setScalar(0.8);
     scene.add(root);
 
     const ambient = new THREE.AmbientLight(0x7adfff, 0.45);
@@ -92,19 +99,29 @@ export default function CommandCenterScene() {
       transparent: true,
       opacity: 0.72,
       side: THREE.DoubleSide,
+      depthTest: false,
+      depthWrite: false,
     });
-    const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x2af8ff, transparent: true, opacity: 0.5 });
+    const edgeMaterial = new THREE.LineBasicMaterial({
+      color: 0x2af8ff,
+      transparent: true,
+      opacity: 0.5,
+      depthTest: false,
+      depthWrite: false,
+    });
     const panels = panelLabels.map((label, index) => {
       const angle = (index / panelLabels.length) * Math.PI * 2;
-      const radius = 3.2 + (index % 2) * 0.35;
+      const radius = 2.02 + (index % 2) * 0.16;
       const group = new THREE.Group();
       group.position.set(Math.cos(angle) * radius, Math.sin(index * 1.7) * 0.5, Math.sin(angle) * 1.35);
       group.rotation.set(0.12 * Math.sin(angle), -angle * 0.28, 0.04 * index);
 
-      const panel = new THREE.Mesh(new THREE.PlaneGeometry(1.52, 0.68), panelMaterial.clone());
+      const panel = new THREE.Mesh(new THREE.PlaneGeometry(1.16, 0.52), panelMaterial.clone());
       const edges = new THREE.LineSegments(new THREE.EdgesGeometry(panel.geometry), edgeMaterial.clone());
       const sprite = makeTextSprite(label);
       sprite.position.z = 0.025;
+      panel.renderOrder = 18;
+      edges.renderOrder = 19;
       group.add(panel, edges, sprite);
       root.add(group);
       return group;
@@ -155,8 +172,8 @@ export default function CommandCenterScene() {
     const animate = () => {
       const elapsed = clock.getElapsedTime();
       const speed = reducedMotion ? 0.12 : 1;
-      root.rotation.y = elapsed * 0.13 * speed + pointer.x * 0.12;
-      root.rotation.x = -0.08 + pointer.y * 0.08;
+      root.rotation.y = elapsed * 0.1 * speed + pointer.x * 0.08;
+      root.rotation.x = -0.06 + pointer.y * 0.055;
       core.rotation.x = elapsed * 0.42 * speed;
       core.rotation.y = elapsed * 0.31 * speed;
       shell.rotation.y = -elapsed * 0.16 * speed;

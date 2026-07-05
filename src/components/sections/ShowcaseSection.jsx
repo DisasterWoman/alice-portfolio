@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { Activity, Gauge, Github, Mail, Orbit, Radio, Rocket, Satellite, Sparkles } from 'lucide-react';
+import { Activity, Gauge, Github, Mail, Orbit, Radio, Rocket, Satellite, Sparkles, X } from 'lucide-react';
 import ComplexAnimationCanvas from '../scene/ComplexAnimationCanvas.jsx';
 import Button from '../ui/Button.jsx';
 import { mailHref, profile } from '../../data/portfolio.js';
 
 const planets = [
+  { name: 'Sun', type: 'Star', tagline: 'System core', distanceLabel: 'System position', distance: '0 km', period: 'center point', temperature: '5,500 C', gravity: '274 m/s2', diameter: '1,392,700 km', moons: '8 planets', day: '25d', color: '#ffb347' },
   { name: 'Mercury', type: 'Terrestrial', tagline: 'Fast inner world', distance: '57.9M km', period: '88 days', temperature: '167 C', gravity: '3.70 m/s2', diameter: '4,879 km', moons: '0', day: '58d 15h', color: '#b9b2a0' },
   { name: 'Venus', type: 'Terrestrial', tagline: 'Golden atmosphere', distance: '108.2M km', period: '225 days', temperature: '464 C', gravity: '8.87 m/s2', diameter: '12,104 km', moons: '0', day: '243d', color: '#e7a85d' },
   { name: 'Earth', type: 'Terrestrial', tagline: 'Blue mission origin', distance: '149.6M km', period: '365 days', temperature: '15 C', gravity: '9.81 m/s2', diameter: '12,742 km', moons: '1', day: '24h', color: '#58c7ff' },
+  { name: 'Moon', type: 'Natural satellite', tagline: 'Earth orbit companion', distanceLabel: 'Distance from Earth', distance: '384,400 km', period: '27.3 days', temperature: '-20 C avg', gravity: '1.62 m/s2', diameter: '3,474 km', moons: '0', day: '27d 7h', color: '#d9d7cf' },
   { name: 'Mars', type: 'Terrestrial', tagline: 'The red planet', distance: '227.9M km', period: '687 days', temperature: '-63 C', gravity: '3.71 m/s2', diameter: '6,779 km', moons: '2', day: '24h 37m', color: '#ee7a4d' },
   { name: 'Jupiter', type: 'Gas giant', tagline: 'Storm-scale gravity', distance: '778.5M km', period: '12 years', temperature: '-108 C', gravity: '24.79 m/s2', diameter: '139,820 km', moons: '95', day: '9h 56m', color: '#f0c27a' },
   { name: 'Saturn', type: 'Gas giant', tagline: 'Ringed signal hub', distance: '1.43B km', period: '29 years', temperature: '-139 C', gravity: '10.44 m/s2', diameter: '116,460 km', moons: '146', day: '10h 42m', color: '#d8c38c' },
@@ -87,7 +89,7 @@ export default function ShowcaseSection() {
   const selectPlanet = (planet) => {
     setSelectedPlanet(planet);
     focusPlanet(planet.name);
-    document.querySelector('.missionControl')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelector('.missionControl')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -128,14 +130,34 @@ export default function ShowcaseSection() {
         </div>
         {selectedPlanet ? (
           <aside className="controlPanel">
-            <p className="kicker"><Satellite size={16} /> Selected object</p>
+            <div className="controlPanelHeader">
+              <p className="kicker"><Satellite size={16} /> Selected object</p>
+              <button type="button" aria-label="Close selected object panel" onClick={() => setSelectedPlanet(null)}>
+                <X size={18} />
+              </button>
+            </div>
             <h2 id="mission-control-title">{selectedPlanet.name}</h2>
             <dl>
-              <div><dt>Distance from Sun</dt><dd>{selectedPlanet.distance}</dd></div>
+              <div><dt>{selectedPlanet.distanceLabel || 'Distance from Sun'}</dt><dd>{selectedPlanet.distance}</dd></div>
               <div><dt>Orbital period</dt><dd>{selectedPlanet.period}</dd></div>
               <div><dt>Gravity</dt><dd>{selectedPlanet.gravity}</dd></div>
               <div><dt>Temperature</dt><dd>{selectedPlanet.temperature}</dd></div>
             </dl>
+            <div className="planetTuning" aria-label="Scene controls">
+              <label>
+                <span>Orbit speed <b>{orbitSpeed.toFixed(2)}x</b></span>
+                <input type="range" min="0.25" max="2" step="0.05" value={orbitSpeed} onChange={(event) => setOrbitSpeed(Number(event.target.value))} />
+              </label>
+              <label>
+                <span>Star density <b>{Math.round(starDensity)}%</b></span>
+                <input type="range" min="30" max="100" step="5" value={starDensity} onChange={(event) => setStarDensity(Number(event.target.value))} />
+              </label>
+              <div className="planetToggleGrid">
+                <label><input type="checkbox" checked={showOrbits} onChange={(event) => setShowOrbits(event.target.checked)} /> Show orbits</label>
+                <label><input type="checkbox" checked={cinematic} onChange={(event) => setCinematic(event.target.checked)} /> Cinematic camera</label>
+              </div>
+              <button type="button" onClick={resetView}>Reset view</button>
+            </div>
             <div className="controlActions">
               <button type="button" onClick={() => focusPlanet(selectedPlanet.name)}>Focus planet</button>
               <button type="button" onClick={handleLaunch}>Launch probe</button>
@@ -209,13 +231,6 @@ export default function ShowcaseSection() {
         </div>
         <div className="signalConsole">
           <div className="radar" aria-hidden="true"><span /><span /><span /></div>
-          <div className="signalControls">
-            <label>Orbit speed <input type="range" min="0.25" max="2" step="0.05" value={orbitSpeed} onChange={(event) => setOrbitSpeed(Number(event.target.value))} /></label>
-            <label>Star density <input type="range" min="30" max="100" step="5" value={starDensity} onChange={(event) => setStarDensity(Number(event.target.value))} /></label>
-            <label><input type="checkbox" checked={showOrbits} onChange={(event) => setShowOrbits(event.target.checked)} /> Show orbits</label>
-            <label><input type="checkbox" checked={cinematic} onChange={(event) => setCinematic(event.target.checked)} /> Cinematic camera</label>
-            <button type="button" onClick={resetView}>Reset view</button>
-          </div>
           <div className="signalDashboard">
             <div className="signalReadout"><span>Signal strength</span><strong>87%</strong><small>stable</small></div>
             <div className="signalReadout"><span>Star density</span><strong>{Math.round(7410 * (starDensity / 100))}</strong><small>live</small></div>

@@ -417,7 +417,9 @@ button.button {
 
 .solarPreviewScene {
   position: absolute;
-  inset: 0;
+  inset: 14px;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 2px);
 }
 
 .landingSection {
@@ -1208,6 +1210,7 @@ button.button {
 }
 
 .missionControl {
+  scroll-margin-top: 92px;
   min-height: 760px;
   display: grid;
   grid-template-columns: 1fr;
@@ -1224,7 +1227,7 @@ button.button {
 }
 
 .missionControl.hasSelection {
-  grid-template-columns: minmax(0, 1fr) minmax(330px, 0.34fr);
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.38fr);
 }
 
 .missionScene {
@@ -1260,8 +1263,34 @@ button.button {
 .controlPanel {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 18px;
+  justify-content: flex-start;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.controlPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.controlPanelHeader button {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.controlPanelHeader button:hover {
+  border-color: rgba(217, 255, 69, 0.58);
+  color: var(--lime);
 }
 
 .controlPanel dl,
@@ -1305,7 +1334,8 @@ button.button {
 }
 
 .controlActions button,
-.signalControls button {
+.signalControls button,
+.planetTuning button {
   min-height: 46px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius);
@@ -1317,10 +1347,65 @@ button.button {
 }
 
 .controlActions button:last-child,
-.signalControls button {
+.signalControls button,
+.planetTuning button {
   color: #071016;
   border: 0;
   background: linear-gradient(135deg, var(--lime), var(--cyan));
+}
+
+.planetTuning {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(42, 248, 255, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.planetTuning label {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.planetTuning label span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.planetTuning b {
+  color: var(--paper);
+}
+
+.planetTuning input[type="range"] {
+  width: 100%;
+  accent-color: var(--lime);
+}
+
+.planetTuning input[type="checkbox"] {
+  accent-color: var(--lime);
+}
+
+.planetToggleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.planetToggleGrid label {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.2;
 }
 
 .archiveCarousel {
@@ -1456,7 +1541,7 @@ button.button {
 
 .signalConsole {
   display: grid;
-  grid-template-columns: minmax(160px, 220px) minmax(240px, 0.42fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(160px, 220px) minmax(300px, 1fr);
   gap: 18px;
   align-items: center;
   overflow: hidden;
@@ -1913,6 +1998,7 @@ button.button {
   }
 
   .controlActions,
+  .planetToggleGrid,
   .journeyList article {
     grid-template-columns: 1fr;
   }
