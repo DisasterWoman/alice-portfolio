@@ -266,7 +266,7 @@ button.button {
   font: inherit;
 }
 
-.landingHero {
+.home-hero {
   min-height: calc(100vh - 74px);
   display: grid;
   grid-template-columns: minmax(0, 0.72fr) minmax(440px, 0.88fr);
@@ -275,7 +275,7 @@ button.button {
   padding: 46px 0 76px;
 }
 
-.landingHeroCopy,
+.home-hero__content,
 .featured3d,
 .landingCard,
 .techGroup,
@@ -290,7 +290,7 @@ button.button {
   backdrop-filter: blur(22px) saturate(1.18);
 }
 
-.landingHeroCopy {
+.home-hero__content {
   min-height: 560px;
   display: flex;
   flex-direction: column;
@@ -300,26 +300,26 @@ button.button {
   padding: clamp(26px, 4vw, 54px);
 }
 
-.landingHeroCopy h1 {
+.home-hero__content h1 {
   max-width: 620px;
   font-size: clamp(3rem, 6vw, 5.35rem);
 }
 
-.landingHeroCopy > p:not(.kicker) {
+.home-hero__content > p:not(.kicker) {
   max-width: 610px;
   color: rgba(247, 251, 255, 0.78);
   font-size: 1.08rem;
   line-height: 1.72;
 }
 
-.landingBadges {
+.home-hero__badges {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   padding-top: 6px;
 }
 
-.landingBadges span,
+.home-hero__badges span,
 .systemChecks span,
 .techGroup span {
   display: inline-flex;
@@ -334,7 +334,7 @@ button.button {
   font-weight: 850;
 }
 
-.commandScene {
+.command-scene {
   position: relative;
   min-height: 560px;
   overflow: hidden;
@@ -347,7 +347,7 @@ button.button {
   box-shadow: inset 0 0 80px rgba(42, 248, 255, 0.08), var(--shadow);
 }
 
-.commandScene::before,
+.command-scene::before,
 .solarPreviewButton::before {
   content: "";
   position: absolute;
@@ -360,7 +360,7 @@ button.button {
   background-size: 44px 44px;
 }
 
-.commandScene canvas,
+.command-scene canvas,
 .solarPreviewScene canvas {
   display: block;
   width: 100%;
@@ -1726,7 +1726,7 @@ button.button {
   }
 
   .hero,
-  .landingHero,
+  .home-hero,
   .featured3d,
   .launchSequence,
   .showcaseSection,
@@ -1745,16 +1745,16 @@ button.button {
     padding-top: 42px;
   }
 
-  .landingHero {
+  .home-hero {
     min-height: auto;
     padding: 34px 0 64px;
   }
 
-  .landingHeroCopy {
+  .home-hero__content {
     min-height: auto;
   }
 
-  .commandScene {
+  .command-scene {
     min-height: 520px;
   }
 
@@ -1878,12 +1878,12 @@ button.button {
     font-size: clamp(2rem, 10vw, 3.1rem);
   }
 
-  .landingHero {
+  .home-hero {
     gap: 14px;
     padding-top: 24px;
   }
 
-  .landingHeroCopy,
+  .home-hero__content,
   .featured3d,
   .landingCard,
   .techGroup,
@@ -1892,15 +1892,15 @@ button.button {
     padding: 18px;
   }
 
-  .landingHeroCopy h1 {
+  .home-hero__content h1 {
     font-size: clamp(2.7rem, 13vw, 4.1rem);
   }
 
-  .landingHeroCopy > p:not(.kicker) {
+  .home-hero__content > p:not(.kicker) {
     font-size: 1rem;
   }
 
-  .commandScene {
+  .command-scene {
     min-height: 390px;
   }
 
@@ -2018,13 +2018,13 @@ button.button {
   width: min(1400px, calc(100% - 32px));
 }
 
-.homeExperience {
+.home-page {
   position: relative;
   isolation: isolate;
   padding-bottom: 8px;
 }
 
-.homeExperience::before {
+.home-page::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -2101,27 +2101,22 @@ button.button {
   box-shadow: inset 0 0 0 1px rgba(217, 255, 69, 0.2), 0 0 28px rgba(42, 248, 255, 0.12);
 }
 
-.landingHero {
+.home-hero {
   position: relative;
-  min-height: min(820px, calc(100vh - 98px));
+  min-height: min(820px, calc(100svh - 98px));
   grid-template-columns: minmax(360px, 0.56fr) minmax(560px, 1fr);
   gap: clamp(22px, 3vw, 42px);
   margin: 10px 0 82px;
   padding: clamp(24px, 4vw, 54px);
-  overflow: hidden;
-  border: 1px solid rgba(42, 248, 255, 0.14);
-  border-radius: 24px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
   background:
-    radial-gradient(circle at 73% 45%, rgba(42, 248, 255, 0.18), transparent 32%),
-    radial-gradient(circle at 18% 78%, rgba(217, 255, 69, 0.08), transparent 24%),
-    linear-gradient(125deg, rgba(5, 10, 18, 0.94), rgba(8, 20, 35, 0.86) 48%, rgba(4, 7, 14, 0.96));
-  box-shadow:
-    0 34px 100px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 0 80px rgba(42, 248, 255, 0.04);
+    radial-gradient(circle at 73% 45%, rgba(42, 248, 255, 0.12), transparent 32%),
+    radial-gradient(circle at 18% 78%, rgba(217, 255, 69, 0.06), transparent 24%);
+  box-shadow: none;
 }
 
-.landingHero::before,
 .featured3d::before,
 .launchSequence::before,
 .landingContact::before {
@@ -2137,7 +2132,7 @@ button.button {
   opacity: 0.42;
 }
 
-.landingHeroCopy {
+.home-hero__content {
   min-height: auto;
   gap: 24px;
   padding: 0;
@@ -2147,18 +2142,18 @@ button.button {
   backdrop-filter: none;
 }
 
-.landingHeroCopy h1 {
+.home-hero__content h1 {
   display: grid;
   max-width: 620px;
   font-size: clamp(3.75rem, 5.8vw, 6.75rem);
   line-height: 0.94;
 }
 
-.landingHeroCopy h1 span {
+.home-hero__content h1 span {
   display: block;
 }
 
-.gradientText {
+.home-hero__title-accent {
   width: max-content;
   max-width: 100%;
   color: transparent;
@@ -2168,30 +2163,30 @@ button.button {
   text-shadow: none;
 }
 
-.landingHeroCopy > p:not(.kicker) {
+.home-hero__content > p:not(.kicker) {
   max-width: 520px;
   color: rgba(236, 244, 255, 0.78);
   font-size: 1.14rem;
 }
 
-.heroActions {
+.home-hero__actions {
   padding-top: 8px;
 }
 
-.skillsCluster {
+.home-hero__skills {
   display: grid;
   gap: 12px;
   width: 100%;
 }
 
-.skillsLabel {
+.home-hero__skills-label {
   color: rgba(247, 251, 255, 0.62);
   font-size: 0.76rem;
   font-weight: 950;
   text-transform: uppercase;
 }
 
-.landingBadges span,
+.home-hero__badges span,
 .techGroup span {
   border-color: rgba(42, 248, 255, 0.12);
   border-radius: 13px;
@@ -2199,7 +2194,7 @@ button.button {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.orbitStatusCard {
+.home-hero__orbit-status {
   width: min(100%, 500px);
   min-height: 68px;
   display: grid;
@@ -2216,23 +2211,23 @@ button.button {
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.orbitStatusCard div {
+.home-hero__orbit-status div {
   display: grid;
   gap: 4px;
 }
 
-.orbitStatusCard strong {
+.home-hero__orbit-status strong {
   color: var(--paper);
   font-size: 0.9rem;
 }
 
-.orbitStatusCard div span {
+.home-hero__orbit-status div span {
   color: rgba(247, 251, 255, 0.72);
   font-size: 0.86rem;
   font-weight: 750;
 }
 
-.statusOrb {
+.home-hero__orbit-status-orb {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -2242,8 +2237,8 @@ button.button {
   box-shadow: 0 0 22px rgba(42, 248, 255, 0.22);
 }
 
-.orbitStatusCard i,
-.systemStatusWidget b {
+.home-hero__orbit-status i,
+.home-hero__system-status b {
   height: 30px;
   background:
     linear-gradient(90deg, transparent, rgba(217, 255, 69, 0.75), transparent),
@@ -2252,14 +2247,15 @@ button.button {
   animation: signalGlow 2.4s ease-in-out infinite;
 }
 
-.heroVisualPanel {
+.home-hero__visual {
   position: relative;
   min-width: 0;
   min-height: clamp(500px, 58vh, 700px);
 }
 
-.heroVisualPanel .commandScene,
-.commandScene {
+.home-hero__visual .command-scene,
+.command-scene {
+  transform-origin: center;
   min-height: 100%;
   border-radius: 18px;
   border-color: rgba(42, 248, 255, 0.16);
@@ -2270,7 +2266,7 @@ button.button {
     linear-gradient(135deg, rgba(3, 7, 15, 0.96), rgba(7, 20, 36, 0.84) 58%, rgba(4, 6, 14, 0.96));
 }
 
-.systemStatusWidget {
+.home-hero__system-status {
   position: absolute;
   right: clamp(18px, 3vw, 34px);
   bottom: clamp(18px, 3vw, 34px);
@@ -2289,14 +2285,14 @@ button.button {
   backdrop-filter: blur(18px) saturate(1.18);
 }
 
-.systemStatusWidget strong {
+.home-hero__system-status strong {
   grid-column: 1 / -1;
   color: rgba(247, 251, 255, 0.74);
   font-size: 0.76rem;
   text-transform: uppercase;
 }
 
-.systemStatusWidget span {
+.home-hero__system-status span {
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -2305,7 +2301,7 @@ button.button {
   font-weight: 850;
 }
 
-.systemStatusWidget i,
+.home-hero__system-status i,
 .systemChecks i {
   width: 9px;
   height: 9px;
@@ -2530,18 +2526,120 @@ button.button {
 }
 
 @media (max-width: 1180px) {
-  .landingHero,
+  .home-hero,
   .featured3d,
   .launchSequence {
     grid-template-columns: 1fr;
   }
 
-  .heroVisualPanel {
+  .home-hero__visual {
     min-height: 520px;
   }
 
   .techGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 981px) and (max-height: 820px) {
+  .topbar {
+    min-height: 76px;
+    padding: 9px 0;
+  }
+
+  .brand,
+  .navLinks {
+    min-height: 52px;
+  }
+
+  .brand span {
+    width: 36px;
+    height: 36px;
+  }
+
+  .home-hero {
+    min-height: 0;
+    height: calc(100svh - 92px);
+    gap: 24px;
+    margin: 4px 0 72px;
+    padding: clamp(18px, 2.2vw, 30px);
+  }
+
+  .home-hero__content {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .home-hero__content h1 {
+    max-width: 500px;
+    font-size: clamp(3.75rem, 5.15vw, 5.35rem);
+    line-height: 0.92;
+  }
+
+  .home-hero__content > p:not(.kicker) {
+    max-width: 470px;
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .home-hero__actions {
+    padding-top: 2px;
+  }
+
+  .button {
+    min-height: 44px;
+    padding-inline: 14px;
+  }
+
+  .home-hero__badges {
+    gap: 8px;
+  }
+
+  .home-hero__badges span {
+    min-height: 30px;
+    padding-inline: 10px;
+    font-size: 0.78rem;
+  }
+
+  .home-hero__skills {
+    gap: 9px;
+  }
+
+  .home-hero__orbit-status {
+    min-height: 60px;
+    grid-template-columns: 38px minmax(0, 1fr) 104px;
+    gap: 10px;
+    margin-top: 0;
+    padding: 8px 12px;
+  }
+
+  .home-hero__orbit-status-orb {
+    width: 34px;
+    height: 34px;
+  }
+
+  .home-hero__orbit-status i,
+  .home-hero__system-status b {
+    height: 24px;
+  }
+
+  .home-hero__orbit-status strong {
+    font-size: 0.82rem;
+  }
+
+  .home-hero__orbit-status div span {
+    font-size: 0.78rem;
+  }
+
+  .home-hero__visual {
+    min-height: 100%;
+  }
+
+  .home-hero__system-status {
+    width: min(250px, calc(100% - 28px));
+    right: 18px;
+    bottom: 18px;
+    padding: 14px;
   }
 }
 
@@ -2555,26 +2653,26 @@ button.button {
     min-height: auto;
   }
 
-  .landingHero {
+  .home-hero {
     min-height: auto;
     margin-top: 8px;
     padding: 20px;
     border-radius: 20px;
   }
 
-  .landingHeroCopy h1 {
+  .home-hero__content h1 {
     font-size: clamp(2.9rem, 15vw, 4.45rem);
   }
 
-  .heroVisualPanel {
+  .home-hero__visual {
     min-height: 360px;
   }
 
-  .orbitStatusCard {
+  .home-hero__orbit-status {
     grid-template-columns: 42px minmax(0, 1fr);
   }
 
-  .orbitStatusCard i {
+  .home-hero__orbit-status i {
     grid-column: 1 / -1;
     width: 140px;
     max-width: 100%;
@@ -2593,7 +2691,7 @@ button.button {
     grid-template-columns: 1fr;
   }
 
-  .systemStatusWidget {
+  .home-hero__system-status {
     position: relative;
     right: auto;
     bottom: auto;

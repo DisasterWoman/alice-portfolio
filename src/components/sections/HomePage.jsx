@@ -70,17 +70,17 @@ export default function HomePage() {
     const context = gsap.context(() => {
       const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
       heroTimeline
-        .from('.landingHero', { autoAlpha: 0, scale: 0.985, duration: 0.75 })
-        .from('.landingHero .kicker', { autoAlpha: 0, y: 16, duration: 0.45 }, '-=0.35')
-        .from('.landingHero h1 span', { autoAlpha: 0, y: 34, stagger: 0.08, duration: 0.62 }, '-=0.2')
-        .from('.landingHeroCopy > p:not(.kicker)', { autoAlpha: 0, y: 18, duration: 0.5 }, '-=0.25')
-        .from('.heroActions .button', { autoAlpha: 0, y: 18, stagger: 0.08, duration: 0.45 }, '-=0.18')
-        .from('.skillsCluster, .orbitStatusCard', { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.45 }, '-=0.14')
-        .from('.heroVisualPanel', { autoAlpha: 0, x: 28, duration: 0.72 }, '-=0.62')
-        .from('.systemStatusWidget', { autoAlpha: 0, y: 18, duration: 0.42 }, '-=0.22');
+        .from('.home-hero', { autoAlpha: 0, scale: 0.985, duration: 0.75 })
+        .from('.home-hero__kicker', { autoAlpha: 0, y: 16, duration: 0.45 }, '-=0.35')
+        .from('.home-hero__title span', { autoAlpha: 0, y: 34, stagger: 0.08, duration: 0.62 }, '-=0.2')
+        .from('.home-hero__description', { autoAlpha: 0, y: 18, duration: 0.5 }, '-=0.25')
+        .from('.home-hero__actions .button', { autoAlpha: 0, y: 18, stagger: 0.08, duration: 0.45 }, '-=0.18')
+        .from('.home-hero__skills, .home-hero__orbit-status', { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.45 }, '-=0.14')
+        .from('.home-hero__visual', { autoAlpha: 0, x: 28, duration: 0.72 }, '-=0.62')
+        .from('.home-hero__system-status', { autoAlpha: 0, y: 18, duration: 0.42 }, '-=0.22');
 
-      gsap.to('.heroVisualPanel', {
-        y: -10,
+      gsap.to('.command-scene', {
+        scale: 1.012,
         duration: 4.5,
         yoyo: true,
         repeat: -1,
@@ -121,20 +121,20 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div ref={pageRef} className="homeExperience">
+    <div ref={pageRef} className="home-page">
       <div className={`routeVeil ${isLaunching ? 'isActive' : ''}`} aria-hidden="true" />
 
-      <header id="top" className="landingHero">
-        <div className="landingHeroCopy" aria-labelledby="hero-title">
-          <p className="kicker"><Sparkles size={16} /> Frontend Engineer · React · Three.js</p>
-          <h1 id="hero-title">
+      <header id="top" className="home-hero">
+        <div className="home-hero__content" aria-labelledby="hero-title">
+          <p className="kicker home-hero__kicker"><Sparkles size={16} /> Frontend Engineer · React · Three.js</p>
+          <h1 id="hero-title" className="home-hero__title">
             <span>Designing</span>
             <span>interfaces</span>
             <span>that feel</span>
-            <span className="gradientText">alive.</span>
+            <span className="home-hero__title-accent">alive.</span>
           </h1>
-          <p>I build immersive web experiences where interaction, animation and code come together to tell a story.</p>
-          <div className="ctaRow heroActions">
+          <p className="home-hero__description">I build immersive web experiences where interaction, animation and code come together to tell a story.</p>
+          <div className="ctaRow home-hero__actions">
             <button className="button button--primary" type="button" onClick={launch3D}>
               <Rocket size={19} /> Explore 3D Experience
             </button>
@@ -142,14 +142,14 @@ export default function HomePage() {
               <Github size={19} /> GitHub <ArrowUpRight size={16} />
             </Button>
           </div>
-          <div className="skillsCluster" aria-label="Core skills">
-            <span className="skillsLabel">Core Skills</span>
-            <div className="landingBadges">
+          <div className="home-hero__skills" aria-label="Core skills">
+            <span className="home-hero__skills-label">Core Skills</span>
+            <div className="home-hero__badges">
               {skills.map((item) => <span key={item}>{item}</span>)}
             </div>
           </div>
-          <div className="orbitStatusCard">
-            <span className="statusOrb" aria-hidden="true" />
+          <div className="home-hero__orbit-status">
+            <span className="home-hero__orbit-status-orb" aria-hidden="true" />
             <div>
               <strong>Currently in orbit</strong>
               <span>Building interactive 3D experiences</span>
@@ -157,9 +157,9 @@ export default function HomePage() {
             <i aria-hidden="true" />
           </div>
         </div>
-        <div className="heroVisualPanel">
+        <div className="home-hero__visual">
           <CommandCenterScene />
-          <div className="systemStatusWidget" aria-hidden="true">
+          <div className="home-hero__system-status" aria-hidden="true">
             <strong>System Status</strong>
             <span><i /> All systems operational</span>
             <b />

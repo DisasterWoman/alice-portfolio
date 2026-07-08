@@ -1,7 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const panelLabels = ['Users', 'API', 'Analytics', 'Reports', 'Payments', 'Pricing', 'Notify'];
+const panelLayout = [
+  { label: 'Users', position: [-2.48, 0.72, 0.74], width: 1.18 },
+  { label: 'API', position: [1.24, 1.32, 0.72], width: 1.08 },
+  { label: 'Analytics', position: [2.26, 0.34, 0.7], width: 1.34 },
+  { label: 'Reports', position: [0, -0.1, 0.88], width: 1.22 },
+  { label: 'Payments', position: [-1.94, -0.86, 0.72], width: 1.34 },
+  { label: 'Pricing', position: [1.6, -0.72, 0.74], width: 1.1 },
+  { label: 'Notify', position: [1.28, -1.42, 0.72], width: 1.12 },
+];
 
 function makeTextSprite(text) {
   const canvas = document.createElement('canvas');
@@ -15,11 +23,14 @@ function makeTextSprite(text) {
   context.roundRect(18, 18, 220, 54, 12);
   context.fill();
   context.stroke();
+  context.strokeStyle = 'rgba(42, 248, 255, 0.8)';
+  context.lineWidth = 3;
+  context.strokeRect(52, 35, 20, 20);
   context.fillStyle = '#f7fbff';
-  context.font = '800 28px Inter, Arial, sans-serif';
-  context.textAlign = 'center';
+  context.font = '800 27px Inter, Arial, sans-serif';
+  context.textAlign = 'left';
   context.textBaseline = 'middle';
-  context.fillText(text, 128, 46);
+  context.fillText(text, 88, 46);
 
   const texture = new THREE.CanvasTexture(canvas);
   const material = new THREE.SpriteMaterial({
@@ -47,7 +58,7 @@ export default function CommandCenterScene() {
     scene.fog = new THREE.FogExp2(0x060913, 0.048);
 
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-    camera.position.set(0.2, 2.42, 9.4);
+    camera.position.set(0.05, 0.95, 9.2);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -109,35 +120,15 @@ export default function CommandCenterScene() {
       return dot;
     });
 
-    const panelMaterial = new THREE.MeshBasicMaterial({
-      color: 0x101827,
-      transparent: true,
-      opacity: 0.72,
-      side: THREE.DoubleSide,
-      depthTest: false,
-      depthWrite: false,
-    });
-    const edgeMaterial = new THREE.LineBasicMaterial({
-      color: 0x2af8ff,
-      transparent: true,
-      opacity: 0.5,
-      depthTest: false,
-      depthWrite: false,
-    });
-    const panels = panelLabels.map((label, index) => {
-      const angle = (index / panelLabels.length) * Math.PI * 2;
-      const radius = 2.02 + (index % 2) * 0.16;
+    const panels = panelLayout.map(({ label, position, width }, index) => {
       const group = new THREE.Group();
-      group.position.set(Math.cos(angle) * radius, Math.sin(index * 1.7) * 0.5, Math.sin(angle) * 1.35);
-      group.rotation.set(0.12 * Math.sin(angle), -angle * 0.28, 0.04 * index);
+      group.position.set(...position);
 
-      const panel = new THREE.Mesh(new THREE.PlaneGeometry(1.16, 0.52), panelMaterial.clone());
-      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(panel.geometry), edgeMaterial.clone());
       const sprite = makeTextSprite(label);
       sprite.position.z = 0.025;
-      panel.renderOrder = 18;
-      edges.renderOrder = 19;
-      group.add(panel, edges, sprite);
+      sprite.scale.set(width * 1.18, 0.52, 1);
+      group.add(sprite);
+      group.userData.baseY = position[1];
       root.add(group);
       return group;
     });
@@ -187,8 +178,8 @@ export default function CommandCenterScene() {
     const animate = () => {
       const elapsed = clock.getElapsedTime();
       const speed = reducedMotion ? 0.12 : 1;
-      root.rotation.y = elapsed * 0.1 * speed + pointer.x * 0.08;
-      root.rotation.x = -0.06 + pointer.y * 0.055;
+      root.rotation.y = pointer.x * 0.035;
+      root.rotation.x = -0.04 + pointer.y * 0.025;
       core.rotation.x = elapsed * 0.42 * speed;
       core.rotation.y = elapsed * 0.31 * speed;
       shell.rotation.y = -elapsed * 0.16 * speed;
@@ -207,7 +198,7 @@ export default function CommandCenterScene() {
         );
       });
       panels.forEach((panel, index) => {
-        panel.position.y += Math.sin(elapsed * 1.4 + index) * 0.0016 * speed;
+        panel.position.y = panel.userData.baseY + Math.sin(elapsed * 1.4 + index) * 0.01 * speed;
         panel.lookAt(camera.position);
       });
 
@@ -235,5 +226,5 @@ export default function CommandCenterScene() {
     };
   }, []);
 
-  return <div className="commandScene" ref={mountRef} aria-label="Animated command center scene" />;
+  return <div className="command-scene" ref={mountRef} aria-label="Animated command center scene" />;
 }
