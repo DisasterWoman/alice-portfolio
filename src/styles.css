@@ -2012,3 +2012,596 @@ button.button {
     padding-bottom: 72px;
   }
 }
+
+/* Premium cinematic homepage */
+.pageShell.isHomePage {
+  width: min(1400px, calc(100% - 32px));
+}
+
+.homeExperience {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 8px;
+}
+
+.homeExperience::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 19%, rgba(42, 248, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 22% 42%, rgba(20, 61, 105, 0.34), transparent 34%),
+    radial-gradient(circle at 86% 68%, rgba(125, 112, 255, 0.1), transparent 30%),
+    linear-gradient(180deg, #030710 0%, #07101c 46%, #040811 100%);
+}
+
+.topbar {
+  min-height: 86px;
+  padding: 14px 0;
+}
+
+.brand {
+  min-height: 58px;
+  border-color: rgba(42, 248, 255, 0.14);
+  border-radius: 18px;
+  padding: 0 18px 0 10px;
+  background:
+    linear-gradient(145deg, rgba(9, 17, 30, 0.84), rgba(4, 9, 18, 0.62)),
+    radial-gradient(circle at 16% 20%, rgba(42, 248, 255, 0.12), transparent 36%);
+  box-shadow:
+    0 18px 54px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.brand span {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--lime) 0%, #72ff9b 34%, var(--cyan) 68%, #f05cff 100%);
+  box-shadow: 0 0 24px rgba(42, 248, 255, 0.22);
+}
+
+.navLinks {
+  min-height: 58px;
+  border-color: rgba(42, 248, 255, 0.13);
+  border-radius: 22px;
+  padding: 6px;
+  background:
+    linear-gradient(145deg, rgba(7, 14, 25, 0.84), rgba(5, 10, 18, 0.54)),
+    radial-gradient(circle at 90% 20%, rgba(42, 248, 255, 0.1), transparent 36%);
+  box-shadow:
+    0 20px 58px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.navLinks::after {
+  content: "";
+  width: 34px;
+  height: 34px;
+  margin: 0 4px 0 8px;
+  border: 1px solid rgba(42, 248, 255, 0.22);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(42, 248, 255, 0.72), rgba(42, 248, 255, 0.12) 38%, transparent 62%),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 24px rgba(42, 248, 255, 0.2);
+}
+
+.navLinks a {
+  border-radius: 16px;
+  color: rgba(247, 251, 255, 0.76);
+  transition: color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.navLinks a:hover {
+  color: var(--paper);
+  background: rgba(42, 248, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(217, 255, 69, 0.2), 0 0 28px rgba(42, 248, 255, 0.12);
+}
+
+.landingHero {
+  position: relative;
+  min-height: min(820px, calc(100vh - 98px));
+  grid-template-columns: minmax(360px, 0.56fr) minmax(560px, 1fr);
+  gap: clamp(22px, 3vw, 42px);
+  margin: 10px 0 82px;
+  padding: clamp(24px, 4vw, 54px);
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.14);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 73% 45%, rgba(42, 248, 255, 0.18), transparent 32%),
+    radial-gradient(circle at 18% 78%, rgba(217, 255, 69, 0.08), transparent 24%),
+    linear-gradient(125deg, rgba(5, 10, 18, 0.94), rgba(8, 20, 35, 0.86) 48%, rgba(4, 7, 14, 0.96));
+  box-shadow:
+    0 34px 100px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 80px rgba(42, 248, 255, 0.04);
+}
+
+.landingHero::before,
+.featured3d::before,
+.launchSequence::before,
+.landingContact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at 58% 48%, black, transparent 74%);
+  opacity: 0.42;
+}
+
+.landingHeroCopy {
+  min-height: auto;
+  gap: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.landingHeroCopy h1 {
+  display: grid;
+  max-width: 620px;
+  font-size: clamp(3.75rem, 5.8vw, 6.75rem);
+  line-height: 0.94;
+}
+
+.landingHeroCopy h1 span {
+  display: block;
+}
+
+.gradientText {
+  width: max-content;
+  max-width: 100%;
+  color: transparent;
+  background: linear-gradient(115deg, #bfff43 0%, #73ff99 36%, #2af8ff 86%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.landingHeroCopy > p:not(.kicker) {
+  max-width: 520px;
+  color: rgba(236, 244, 255, 0.78);
+  font-size: 1.14rem;
+}
+
+.heroActions {
+  padding-top: 8px;
+}
+
+.skillsCluster {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.skillsLabel {
+  color: rgba(247, 251, 255, 0.62);
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.landingBadges span,
+.techGroup span {
+  border-color: rgba(42, 248, 255, 0.12);
+  border-radius: 13px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.orbitStatusCard {
+  width: min(100%, 500px);
+  min-height: 68px;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 120px;
+  gap: 14px;
+  align-items: center;
+  margin-top: 24px;
+  border: 1px solid rgba(42, 248, 255, 0.13);
+  border-radius: 18px;
+  padding: 11px 16px;
+  background:
+    radial-gradient(circle at 8% 50%, rgba(42, 248, 255, 0.16), transparent 30%),
+    linear-gradient(145deg, rgba(9, 17, 30, 0.74), rgba(4, 8, 16, 0.62));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.orbitStatusCard div {
+  display: grid;
+  gap: 4px;
+}
+
+.orbitStatusCard strong {
+  color: var(--paper);
+  font-size: 0.9rem;
+}
+
+.orbitStatusCard div span {
+  color: rgba(247, 251, 255, 0.72);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.statusOrb {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 26%, rgba(255, 255, 255, 0.92), transparent 18%),
+    radial-gradient(circle, rgba(42, 248, 255, 0.38), rgba(7, 16, 28, 0.92) 68%);
+  box-shadow: 0 0 22px rgba(42, 248, 255, 0.22);
+}
+
+.orbitStatusCard i,
+.systemStatusWidget b {
+  height: 30px;
+  background:
+    linear-gradient(90deg, transparent, rgba(217, 255, 69, 0.75), transparent),
+    linear-gradient(90deg, transparent 0 18%, rgba(42, 248, 255, 0.5) 18% 21%, transparent 21% 38%, rgba(217, 255, 69, 0.72) 38% 42%, transparent 42%);
+  mask: url("data:image/svg+xml,%3Csvg width='130' height='34' viewBox='0 0 130 34' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 18 C18 18 20 18 30 18 C40 18 41 8 50 8 C58 8 58 28 68 28 C78 28 79 14 88 14 C98 14 98 20 108 20 C118 20 118 16 130 16' stroke='black' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  animation: signalGlow 2.4s ease-in-out infinite;
+}
+
+.heroVisualPanel {
+  position: relative;
+  min-width: 0;
+  min-height: clamp(500px, 58vh, 700px);
+}
+
+.heroVisualPanel .commandScene,
+.commandScene {
+  min-height: 100%;
+  border-radius: 18px;
+  border-color: rgba(42, 248, 255, 0.16);
+  background:
+    radial-gradient(circle at 52% 47%, rgba(42, 248, 255, 0.25), transparent 27%),
+    radial-gradient(circle at 80% 15%, rgba(125, 112, 255, 0.14), transparent 28%),
+    radial-gradient(circle at 10% 40%, rgba(217, 255, 69, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(3, 7, 15, 0.96), rgba(7, 20, 36, 0.84) 58%, rgba(4, 6, 14, 0.96));
+}
+
+.systemStatusWidget {
+  position: absolute;
+  right: clamp(18px, 3vw, 34px);
+  bottom: clamp(18px, 3vw, 34px);
+  width: min(270px, calc(100% - 36px));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  gap: 9px 14px;
+  align-items: center;
+  border: 1px solid rgba(42, 248, 255, 0.16);
+  border-radius: 16px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 72% 20%, rgba(217, 255, 69, 0.1), transparent 36%),
+    linear-gradient(145deg, rgba(12, 20, 34, 0.82), rgba(5, 9, 18, 0.72));
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(1.18);
+}
+
+.systemStatusWidget strong {
+  grid-column: 1 / -1;
+  color: rgba(247, 251, 255, 0.74);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.systemStatusWidget span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: rgba(247, 251, 255, 0.86);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.systemStatusWidget i,
+.systemChecks i {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 16px rgba(217, 255, 69, 0.62);
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+.featured3d,
+.launchSequence,
+.landingContact {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(42, 248, 255, 0.13);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 72% 44%, rgba(42, 248, 255, 0.15), transparent 32%),
+    radial-gradient(circle at 14% 82%, rgba(217, 255, 69, 0.07), transparent 24%),
+    linear-gradient(135deg, rgba(8, 17, 31, 0.86), rgba(4, 9, 18, 0.76));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.featured3d {
+  grid-template-columns: minmax(320px, 0.66fr) minmax(420px, 0.8fr);
+  margin-bottom: 96px;
+  padding: clamp(28px, 4vw, 54px);
+}
+
+.featured3d > div:first-child,
+.launchSequence > div:first-child,
+.landingContact > div:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.solarPreviewButton {
+  min-height: 390px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 40% 48%, rgba(42, 248, 255, 0.22), transparent 29%),
+    radial-gradient(circle at 78% 22%, rgba(125, 112, 255, 0.12), transparent 30%),
+    #040912;
+}
+
+.solarPreviewButton span {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 1;
+  border: 1px solid rgba(42, 248, 255, 0.22);
+  border-radius: 999px;
+  padding: 9px 12px;
+  color: rgba(247, 251, 255, 0.86);
+  background: rgba(5, 11, 20, 0.68);
+  font-size: 0.78rem;
+  font-weight: 900;
+  backdrop-filter: blur(14px);
+}
+
+.landingSection {
+  position: relative;
+  padding-bottom: 96px;
+}
+
+.landingSectionIntro {
+  margin-bottom: 28px;
+}
+
+.landingSectionIntro h2 {
+  max-width: 620px;
+}
+
+.landingCardGrid {
+  gap: 18px;
+}
+
+.landingCard,
+.techGroup {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(42, 248, 255, 0.13);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(42, 248, 255, 0.1), transparent 34%),
+    linear-gradient(145deg, rgba(9, 18, 33, 0.82), rgba(5, 10, 19, 0.7));
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.landingCard:hover,
+.techGroup:hover {
+  border-color: rgba(42, 248, 255, 0.34);
+  box-shadow: 0 26px 72px rgba(0, 0, 0, 0.28), 0 0 38px rgba(42, 248, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.landingCard::before,
+.techGroup::before {
+  width: 56px;
+  height: 3px;
+}
+
+.landingCard svg {
+  color: var(--cyan);
+}
+
+.landingCard h3,
+.techGroup h3 {
+  font-size: 1.32rem;
+}
+
+.cardTag {
+  width: max-content;
+  border: 1px solid rgba(217, 255, 69, 0.24);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--lime);
+  background: rgba(217, 255, 69, 0.06);
+  font-size: 0.74rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.techGrid {
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.techGroup {
+  min-height: 292px;
+}
+
+.techGroup.isFeatured {
+  border-color: rgba(217, 255, 69, 0.2);
+  background:
+    radial-gradient(circle at 74% 22%, rgba(217, 255, 69, 0.14), transparent 36%),
+    radial-gradient(circle at 26% 72%, rgba(42, 248, 255, 0.12), transparent 34%),
+    linear-gradient(145deg, rgba(9, 18, 33, 0.86), rgba(5, 10, 19, 0.72));
+}
+
+.techGroup button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 13px;
+}
+
+.launchSequence {
+  grid-template-columns: minmax(320px, 0.8fr) minmax(340px, 0.58fr);
+  margin-bottom: 96px;
+}
+
+.launchSequence h2 {
+  max-width: 700px;
+}
+
+.systemChecks {
+  position: relative;
+  z-index: 1;
+}
+
+.systemChecks span {
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 58px;
+  border-color: rgba(42, 248, 255, 0.14);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.systemChecks span::after {
+  margin-left: auto;
+  content: "ONLINE";
+}
+
+.landingContact {
+  margin-bottom: 56px;
+}
+
+.button {
+  border-radius: 14px;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, var(--lime), #76ff97 38%, var(--cyan));
+  box-shadow: 0 18px 42px rgba(42, 248, 255, 0.2), 0 0 28px rgba(217, 255, 69, 0.08);
+}
+
+.button--secondary {
+  border-color: rgba(42, 248, 255, 0.12);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
+    rgba(5, 10, 18, 0.72);
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes signalGlow {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: translateX(-3px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+
+@media (max-width: 1180px) {
+  .landingHero,
+  .featured3d,
+  .launchSequence {
+    grid-template-columns: 1fr;
+  }
+
+  .heroVisualPanel {
+    min-height: 520px;
+  }
+
+  .techGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .pageShell.isHomePage {
+    width: min(100% - 18px, 560px);
+  }
+
+  .topbar {
+    position: static;
+    min-height: auto;
+  }
+
+  .landingHero {
+    min-height: auto;
+    margin-top: 8px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .landingHeroCopy h1 {
+    font-size: clamp(2.9rem, 15vw, 4.45rem);
+  }
+
+  .heroVisualPanel {
+    min-height: 360px;
+  }
+
+  .orbitStatusCard {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .orbitStatusCard i {
+    grid-column: 1 / -1;
+    width: 140px;
+    max-width: 100%;
+  }
+
+  .featured3d,
+  .launchSequence,
+  .landingContact {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .techGrid,
+  .landingCardGrid,
+  .systemChecks {
+    grid-template-columns: 1fr;
+  }
+
+  .systemStatusWidget {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .solarPreviewButton {
+    min-height: 300px;
+  }
+}

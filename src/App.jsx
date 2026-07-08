@@ -9,7 +9,7 @@ export default function App() {
   return (
     <>
       <div className="grainLayer" aria-hidden="true" />
-      <main className="pageShell">
+      <main className={`pageShell ${isThreeDPage ? 'isShowcasePage' : 'isHomePage'}`}>
         <Header />
         {isThreeDPage ? (
           <ShowcaseSection />

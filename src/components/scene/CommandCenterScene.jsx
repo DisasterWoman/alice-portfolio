@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const panelLabels = ['Booking', 'Analytics', 'Pricing', 'Payments', 'Users', 'API', 'Reports', 'Notify'];
+const panelLabels = ['Users', 'API', 'Analytics', 'Reports', 'Payments', 'Pricing', 'Notify'];
 
 function makeTextSprite(text) {
   const canvas = document.createElement('canvas');
@@ -86,12 +86,27 @@ export default function CommandCenterScene() {
     );
     root.add(shell);
 
-    const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0xd9ff45, transparent: true, opacity: 0.24 });
-    const rings = [1.85, 2.45, 3.05].map((radius, index) => {
+    const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0xd9ff45, transparent: true, opacity: 0.22 });
+    const rings = [1.72, 2.22, 2.78, 3.28].map((radius, index) => {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.006, 8, 160), orbitMaterial.clone());
       ring.rotation.set(Math.PI / 2 + index * 0.38, index * 0.18, index * 0.34);
       root.add(ring);
       return ring;
+    });
+
+    const planetMaterial = [
+      new THREE.MeshBasicMaterial({ color: 0xd9ff45, transparent: true, opacity: 0.86 }),
+      new THREE.MeshBasicMaterial({ color: 0x2af8ff, transparent: true, opacity: 0.76 }),
+      new THREE.MeshBasicMaterial({ color: 0x7d70ff, transparent: true, opacity: 0.58 }),
+    ];
+    const orbitDots = [1.72, 2.22, 2.78, 3.28, 2.48].map((radius, index) => {
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.055 + (index % 2) * 0.025, 22, 14),
+        planetMaterial[index % planetMaterial.length].clone(),
+      );
+      dot.userData = { radius, angle: index * 1.28, speed: 0.2 + index * 0.035 };
+      root.add(dot);
+      return dot;
     });
 
     const panelMaterial = new THREE.MeshBasicMaterial({
@@ -181,6 +196,15 @@ export default function CommandCenterScene() {
 
       rings.forEach((ring, index) => {
         ring.rotation.z = elapsed * (0.12 + index * 0.045) * speed;
+      });
+      orbitDots.forEach((dot, index) => {
+        const angle = dot.userData.angle + elapsed * dot.userData.speed * speed;
+        const tilt = 0.28 + index * 0.11;
+        dot.position.set(
+          Math.cos(angle) * dot.userData.radius,
+          Math.sin(angle * 1.2) * tilt,
+          Math.sin(angle) * dot.userData.radius * 0.52,
+        );
       });
       panels.forEach((panel, index) => {
         panel.position.y += Math.sin(elapsed * 1.4 + index) * 0.0016 * speed;
