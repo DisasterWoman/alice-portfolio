@@ -4,13 +4,10 @@ import * as THREE from 'three';
 import './CommandCenterScene.css';
 
 const panelLayout = [
-  { label: 'Users', position: [-2.48, 0.72, 0.74], width: 1.18 },
-  { label: 'API', position: [1.24, 1.32, 0.72], width: 1.08 },
-  { label: 'Analytics', position: [2.26, 0.34, 0.7], width: 1.34 },
-  { label: 'Reports', position: [0, -0.1, 0.88], width: 1.22 },
-  { label: 'Payments', position: [-1.94, -0.86, 0.72], width: 1.34 },
-  { label: 'Pricing', position: [1.6, -0.72, 0.74], width: 1.1 },
-  { label: 'Notify', position: [1.28, -1.42, 0.72], width: 1.12 },
+  { label: 'Users', position: [-2.34, 0.72, 0.74], width: 1.18 },
+  { label: 'API', position: [1.2, 1.26, 0.72], width: 1.08 },
+  { label: 'Analytics', position: [2.26, 0.18, 0.7], width: 1.34 },
+  { label: 'Reports', position: [0.1, -0.18, 0.88], width: 1.22 },
 ];
 
 function makeTextSprite(text) {
@@ -69,7 +66,7 @@ export default function CommandCenterScene() {
     mount.appendChild(renderer.domElement);
 
     const root = new THREE.Group();
-    root.scale.setScalar(0.8);
+    root.scale.setScalar(0.96);
     scene.add(root);
 
     const ambient = new THREE.AmbientLight(0x7adfff, 0.45);
@@ -100,9 +97,9 @@ export default function CommandCenterScene() {
     root.add(shell);
 
     const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0xd9ff45, transparent: true, opacity: 0.22 });
-    const rings = [1.72, 2.22, 2.78, 3.28].map((radius, index) => {
+    const rings = [1.54, 1.88, 2.24, 2.62].map((radius, index) => {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.006, 8, 160), orbitMaterial.clone());
-      ring.rotation.set(Math.PI / 2 + index * 0.38, index * 0.18, index * 0.34);
+      ring.rotation.set(Math.PI / 2 + index * 0.3, index * 0.15, index * 0.26);
       root.add(ring);
       return ring;
     });
@@ -112,7 +109,7 @@ export default function CommandCenterScene() {
       new THREE.MeshBasicMaterial({ color: 0x2af8ff, transparent: true, opacity: 0.76 }),
       new THREE.MeshBasicMaterial({ color: 0x7d70ff, transparent: true, opacity: 0.58 }),
     ];
-    const orbitDots = [1.72, 2.22, 2.78, 3.28, 2.48].map((radius, index) => {
+    const orbitDots = [1.54, 1.88, 2.24, 2.62, 2.06].map((radius, index) => {
       const dot = new THREE.Mesh(
         new THREE.SphereGeometry(0.055 + (index % 2) * 0.025, 22, 14),
         planetMaterial[index % planetMaterial.length].clone(),
@@ -170,11 +167,11 @@ export default function CommandCenterScene() {
       const { width, height } = mount.getBoundingClientRect();
       const isMobile = width < 560;
       const isTablet = width < 760;
-      const sceneScale = isMobile ? 0.62 : isTablet ? 0.7 : 0.8;
+      const sceneScale = isMobile ? 0.72 : isTablet ? 0.84 : 0.96;
 
       root.scale.setScalar(sceneScale);
-      camera.position.z = isMobile ? 10.4 : isTablet ? 9.8 : 9.2;
-      camera.position.y = isMobile ? 0.78 : 0.95;
+      camera.position.z = isMobile ? 9.8 : isTablet ? 9.1 : 8.25;
+      camera.position.y = isMobile ? 0.78 : isTablet ? 0.88 : 0.94;
       renderer.setSize(width, height, false);
       camera.aspect = width / Math.max(height, 1);
       camera.lookAt(0, 0, 0);

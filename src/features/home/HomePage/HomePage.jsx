@@ -42,7 +42,7 @@ const techGroups = [
   ['Testing', ['Jest', 'Vitest']],
 ];
 
-const skills = ['4+ Years', 'Three.js', 'TypeScript', 'React', 'Vue', 'SaaS'];
+const skills = ['React', 'Three.js', 'TypeScript', 'SaaS'];
 const systemChecks = ['System Check', 'Lighting', 'Particles', 'Camera', 'Orbit Engine', 'Ready'];
 const heroAnimatedElements = [
   '.home-hero',
@@ -51,9 +51,7 @@ const heroAnimatedElements = [
   '.home-hero__description',
   '.home-hero__actions .button',
   '.home-hero__skills',
-  '.home-hero__orbit-status',
   '.home-hero__visual',
-  '.home-hero__system-status',
 ].join(', ');
 
 function useLaunchTransition() {
@@ -91,9 +89,8 @@ export default function HomePage() {
         .from('.home-hero__title span', { autoAlpha: 0, y: 34, stagger: 0.08, duration: 0.62 }, '-=0.2')
         .from('.home-hero__description', { autoAlpha: 0, y: 18, duration: 0.5 }, '-=0.25')
         .from('.home-hero__actions .button', { autoAlpha: 0, y: 18, stagger: 0.08, duration: 0.45 }, '-=0.18')
-        .from('.home-hero__skills, .home-hero__orbit-status', { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.45 }, '-=0.14')
-        .from('.home-hero__visual', { autoAlpha: 0, x: 28, duration: 0.72 }, '-=0.62')
-        .from('.home-hero__system-status', { autoAlpha: 0, y: 18, duration: 0.42 }, '-=0.22');
+        .from('.home-hero__skills', { autoAlpha: 0, y: 18, duration: 0.45 }, '-=0.14')
+        .from('.home-hero__visual', { autoAlpha: 0, x: 28, duration: 0.72 }, '-=0.62');
 
       gsap.utils.toArray('.featured-experience, .landing-section, .launch-sequence, .landing-contact').forEach((section) => {
         gsap.from(section, {
@@ -158,22 +155,9 @@ export default function HomePage() {
               {skills.map((item) => <span key={item}>{item}</span>)}
             </div>
           </div>
-          <div className="home-hero__orbit-status">
-            <span className="home-hero__orbit-status-orb" aria-hidden="true" />
-            <div>
-              <strong>Currently in orbit</strong>
-              <span>Building interactive 3D experiences</span>
-            </div>
-            <i aria-hidden="true" />
-          </div>
         </div>
         <div className="home-hero__visual">
           <CommandCenterScene />
-          <div className="home-hero__system-status" aria-hidden="true">
-            <strong>System Status</strong>
-            <span><i /> All systems operational</span>
-            <b />
-          </div>
         </div>
       </header>
 
