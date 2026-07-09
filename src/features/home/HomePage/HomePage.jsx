@@ -70,6 +70,9 @@ function useLaunchTransition() {
 export default function HomePage() {
   const [isLaunching, launch3D] = useLaunchTransition();
   const pageRef = useRef(null);
+  const signalAliveIntent = (active) => {
+    window.dispatchEvent(new CustomEvent('hero:alive-intent', { detail: { active, pulse: active } }));
+  };
 
   useEffect(() => {
     const root = pageRef.current;
@@ -138,7 +141,13 @@ export default function HomePage() {
             <span>Designing</span>
             <span>interfaces</span>
             <span>that feel</span>
-            <span className="home-hero__title-accent">alive.</span>
+            <span
+              className="home-hero__title-accent"
+              onPointerEnter={() => signalAliveIntent(true)}
+              onPointerLeave={() => signalAliveIntent(false)}
+            >
+              alive.
+            </span>
           </h1>
           <p className="home-hero__description">I build immersive web experiences where interaction, animation and code come together to tell a story.</p>
           <div className="button-group home-hero__actions">
@@ -161,7 +170,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="featured-experience" aria-labelledby="featured-title">
+      <section className="featured-experience" id="projects" aria-labelledby="featured-title">
         <div>
           <p className="eyebrow">Featured 3D Experience</p>
           <h2 id="featured-title">Solar Interface System</h2>

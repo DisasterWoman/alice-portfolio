@@ -1,3 +1,7 @@
+.home-page {
+  overflow-x: clip;
+}
+
 .home-hero {
   min-height: calc(100vh - 74px);
   display: grid;
@@ -67,6 +71,7 @@
 }
 
 .featured-experience {
+  scroll-margin-top: 110px;
   display: grid;
   grid-template-columns: minmax(0, 0.74fr) minmax(360px, 0.66fr);
   gap: 28px;
@@ -122,6 +127,7 @@
 }
 
 .landing-section {
+  scroll-margin-top: 110px;
   padding: 0 0 var(--section-y);
 }
 
@@ -244,6 +250,7 @@
 }
 
 .landing-contact {
+  scroll-margin-top: 110px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -328,11 +335,20 @@
 .home-hero__title-accent {
   width: max-content;
   max-width: 100%;
+  cursor: default;
   color: transparent;
   background: linear-gradient(118deg, #b8ff3f 0%, #7dff8f 32%, #45f4ce 64%, var(--cyan) 100%);
+  background-size: 180% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   text-shadow: none;
+  animation: aliveGradient 6s ease-in-out infinite;
+  transition: filter 180ms ease;
+}
+
+.home-hero__title-accent:hover {
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 22px rgba(69, 244, 206, 0.2));
 }
 
 .home-hero__content > p:not(.eyebrow) {
@@ -633,8 +649,25 @@
   }
 }
 
+@keyframes aliveGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 .home-hero__visual .command-scene {
   animation: commandSceneBreathe 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__title-accent:hover {
+    animation: none;
+  }
 }
 
 @media (max-width: 1180px) {
@@ -819,11 +852,14 @@
 
   .home-hero__visual {
     position: absolute;
-    inset: -24px -18px 0;
+    top: 72px;
+    right: -70px;
+    bottom: 0;
+    left: 23%;
     z-index: 0;
     min-height: 0;
-    height: calc(100% + 24px);
-    opacity: 0.58;
+    height: auto;
+    opacity: 0.42;
     pointer-events: none;
     transform: none;
   }
@@ -878,9 +914,12 @@
   }
 
   .home-hero__visual {
-    inset: -18px -44px 0 -12px;
-    height: calc(100% + 18px);
-    opacity: 0.5;
+    top: 84px;
+    right: -96px;
+    bottom: 0;
+    left: 18%;
+    height: auto;
+    opacity: 0.36;
   }
 
   .home-hero__visual .command-scene {

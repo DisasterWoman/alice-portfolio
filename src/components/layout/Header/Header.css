@@ -105,8 +105,11 @@
 
 @media (max-width: 760px) {
   .site-header {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 30;
     min-height: auto;
+    padding: 10px 0;
   }
 }
 
@@ -114,6 +117,7 @@
   .site-header {
     align-items: stretch;
     flex-direction: column;
+    gap: 8px;
   }
 
   .site-header__brand {
@@ -122,10 +126,20 @@
 
   .site-header__nav {
     width: 100%;
-    overflow-x: auto;
+    gap: 2px;
+    overflow: hidden;
+    padding: 5px;
+  }
+
+  .site-header__nav::after {
+    display: none;
   }
 
   .site-header__nav a {
-    flex: 1 0 auto;
+    flex: 1 1 0;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 8px;
+    font-size: 0.82rem;
   }
 }
