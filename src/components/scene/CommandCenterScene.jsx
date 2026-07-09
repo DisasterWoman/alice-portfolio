@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+import './CommandCenterScene.css';
+
 const panelLayout = [
   { label: 'Users', position: [-2.48, 0.72, 0.74], width: 1.18 },
   { label: 'API', position: [1.24, 1.32, 0.72], width: 1.08 },

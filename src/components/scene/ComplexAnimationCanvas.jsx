@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+import './ComplexAnimationCanvas.css';
+
 function makeTexture(size, paint) {
   const canvas = document.createElement('canvas');
   canvas.width = size;
@@ -662,5 +664,5 @@ export default function ComplexAnimationCanvas() {
     };
   }, []);
 
-  return <div className="complexCanvas" ref={mountRef} aria-label="Animated solar system scene" />;
+  return <div className="space-canvas" ref={mountRef} aria-label="Animated solar system scene" />;
 }

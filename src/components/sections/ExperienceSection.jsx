@@ -1,12 +1,14 @@
 import React from 'react';
 import { experience } from '../../data/portfolio.js';
 
+import './ExperienceSection.css';
+
 export default function ExperienceSection() {
   return (
-    <section className="experienceRail" aria-label="Experience timeline">
+    <section className="experience-timeline" aria-label="Experience timeline">
       {experience.map((item) => (
-        <article className="experienceItem" key={item.company}>
-          <div className="experienceHeader">
+        <article className="experience-timeline__item" key={item.company}>
+          <div className="experience-timeline__header">
             <p>{item.period}</p>
             <span>{item.accent}</span>
           </div>

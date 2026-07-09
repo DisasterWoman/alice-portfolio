@@ -1,0 +1,75 @@
+.command-scene::before,
+.featured-experience__preview-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.036) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.command-scene canvas,
+.solar-preview-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.featured-experience__preview-button {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.22);
+  border-radius: var(--radius);
+  padding: 0;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 38% 50%, rgba(42, 248, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 78% 22%, rgba(255, 75, 183, 0.12), transparent 30%),
+    #060913;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.featured-experience__preview-button:hover {
+  transform: translateY(-3px);
+  border-color: rgba(217, 255, 69, 0.8);
+  box-shadow: 0 0 0 1px rgba(217, 255, 69, 0.34), var(--shadow);
+}
+
+.solar-preview-scene {
+  position: absolute;
+  inset: 14px;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 2px);
+}
+  .featured-experience__preview-button {
+    min-height: 260px;
+  }
+.featured-experience__preview-button {
+  min-height: 390px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 40% 48%, rgba(42, 248, 255, 0.22), transparent 29%),
+    radial-gradient(circle at 78% 22%, rgba(125, 112, 255, 0.12), transparent 30%),
+    #040912;
+}
+
+.featured-experience__preview-button span {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 1;
+  border: 1px solid rgba(42, 248, 255, 0.22);
+  border-radius: 999px;
+  padding: 9px 12px;
+  color: rgba(247, 251, 255, 0.86);
+  background: rgba(5, 11, 20, 0.68);
+  font-size: 0.78rem;
+  font-weight: 900;
+  backdrop-filter: blur(14px);
+}
+  .featured-experience__preview-button {
+    min-height: 300px;
+  }

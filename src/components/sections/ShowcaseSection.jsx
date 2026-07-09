@@ -5,6 +5,8 @@ import ComplexAnimationCanvas from '../scene/ComplexAnimationCanvas.jsx';
 import Button from '../ui/Button.jsx';
 import { mailHref, profile } from '../../data/portfolio.js';
 
+import './ShowcaseSection.css';
+
 const planets = [
   { name: 'Sun', type: 'Star', tagline: 'System core', distanceLabel: 'System position', distance: '0 km', period: 'center point', temperature: '5,500 C', gravity: '274 m/s2', diameter: '1,392,700 km', moons: '8 planets', day: '25d', color: '#ffb347' },
   { name: 'Mercury', type: 'Terrestrial', tagline: 'Fast inner world', distance: '57.9M km', period: '88 days', temperature: '167 C', gravity: '3.70 m/s2', diameter: '4,879 km', moons: '0', day: '58d 15h', color: '#b9b2a0' },
@@ -89,7 +91,7 @@ export default function ShowcaseSection() {
   const selectPlanet = (planet) => {
     setSelectedPlanet(planet);
     focusPlanet(planet.name);
-    document.querySelector('.missionControl')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('.mission-control')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -108,15 +110,15 @@ export default function ShowcaseSection() {
 
   return (
     <>
-      <section className="spaceHero" aria-label="Cinematic space control room intro">
-        <div className="showcaseCopy">
-          <p className="kicker"><Orbit size={16} /> NASA-style dashboard</p>
+      <section className="space-hero" aria-label="Cinematic space control room intro">
+        <div className="space-hero__content">
+          <p className="eyebrow"><Orbit size={16} /> NASA-style dashboard</p>
           <h1>Cinematic space control room.</h1>
           <p>
             Not a website about space. A space interface you can control: select planets,
             launch probes, tune telemetry and drive a realistic Three.js solar system.
           </p>
-          <div className="showcaseBadges" aria-label="3D scene details">
+          <div className="space-hero__badges" aria-label="3D scene details">
             <span>3D planet selection</span>
             <span>mission planner</span>
             <span>live signal UI</span>
@@ -124,14 +126,14 @@ export default function ShowcaseSection() {
         </div>
       </section>
 
-      <section className={`missionControl ${selectedPlanet ? 'hasSelection' : ''}`} aria-labelledby="mission-control-title">
-        <div className="missionScene">
+      <section className={`mission-control ${selectedPlanet ? 'mission-control--has-selection' : ''}`} aria-labelledby="mission-control-title">
+        <div className="mission-control__scene">
           <ComplexAnimationCanvas />
         </div>
         {selectedPlanet ? (
-          <aside className="controlPanel">
-            <div className="controlPanelHeader">
-              <p className="kicker"><Satellite size={16} /> Selected object</p>
+          <aside className="mission-control__panel">
+            <div className="mission-control__panel-header">
+              <p className="eyebrow"><Satellite size={16} /> Selected object</p>
               <button type="button" aria-label="Close selected object panel" onClick={() => setSelectedPlanet(null)}>
                 <X size={18} />
               </button>
@@ -143,7 +145,7 @@ export default function ShowcaseSection() {
               <div><dt>Gravity</dt><dd>{selectedPlanet.gravity}</dd></div>
               <div><dt>Temperature</dt><dd>{selectedPlanet.temperature}</dd></div>
             </dl>
-            <div className="planetTuning" aria-label="Scene controls">
+            <div className="mission-control__tuning" aria-label="Scene controls">
               <label>
                 <span>Orbit speed <b>{orbitSpeed.toFixed(2)}x</b></span>
                 <input type="range" min="0.25" max="2" step="0.05" value={orbitSpeed} onChange={(event) => setOrbitSpeed(Number(event.target.value))} />
@@ -152,13 +154,13 @@ export default function ShowcaseSection() {
                 <span>Star density <b>{Math.round(starDensity)}%</b></span>
                 <input type="range" min="30" max="100" step="5" value={starDensity} onChange={(event) => setStarDensity(Number(event.target.value))} />
               </label>
-              <div className="planetToggleGrid">
+              <div className="mission-control__toggle-grid">
                 <label><input type="checkbox" checked={showOrbits} onChange={(event) => setShowOrbits(event.target.checked)} /> Show orbits</label>
                 <label><input type="checkbox" checked={cinematic} onChange={(event) => setCinematic(event.target.checked)} /> Cinematic camera</label>
               </div>
               <button type="button" onClick={resetView}>Reset view</button>
             </div>
-            <div className="controlActions">
+            <div className="mission-control__actions">
               <button type="button" onClick={() => focusPlanet(selectedPlanet.name)}>Focus planet</button>
               <button type="button" onClick={handleLaunch}>Launch probe</button>
             </div>
@@ -166,28 +168,30 @@ export default function ShowcaseSection() {
         ) : null}
       </section>
 
-      <section className="spaceSection" aria-labelledby="archive-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Sparkles size={16} /> Planet archive</p>
+      <section className="space-section" aria-labelledby="archive-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Sparkles size={16} /> Planet archive</p>
           <h2 id="archive-title">Explore the system.</h2>
           <p>Each card controls the main mission canvas and focuses the camera without changing pages.</p>
         </div>
-        <div className="archiveCarousel">
-          <div className="carouselControls" aria-label="Planet archive controls">
+        <div className="planet-archive">
+          <div className="planet-archive__controls" aria-label="Planet archive controls">
             <button type="button" onClick={scrollPrev}>Prev</button>
             <button type="button" onClick={scrollNext}>Next</button>
           </div>
-          <div className="embla" ref={emblaRef}>
-            <div className="emblaTrack">
+          <div className="planet-archive__viewport" ref={emblaRef}>
+            <div className="planet-archive__track">
               {planets.map((planet) => (
-                <div className="emblaSlide" key={planet.name}>
+                <div className="planet-archive__slide" key={planet.name}>
                   <button
-                    className={`archiveCard ${selectedPlanet?.name === planet.name ? 'isActive' : ''}`}
+                    className={`planet-card ${selectedPlanet?.name === planet.name ? 'is-active' : ''}`}
                     type="button"
                     onClick={() => selectPlanet(planet)}
+                    // Dynamic CSS variable: each planet color comes from data, so a static class would duplicate data as CSS.
+                    style={{ '--planet-color': planet.color }}
                   >
                     <span>{planet.type}</span>
-                    <i style={{ '--planet-color': planet.color }} />
+                    <i />
                     <strong>{planet.name}</strong>
                     <em>{planet.tagline}</em>
                     <dl>
@@ -204,49 +208,55 @@ export default function ShowcaseSection() {
         </div>
       </section>
 
-      <section className="spaceSection launchSection" aria-labelledby="launch-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Rocket size={16} /> Launch simulator</p>
+      <section className="space-section space-section--launch" aria-labelledby="launch-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Rocket size={16} /> Launch simulator</p>
           <h2 id="launch-title">Mission route.</h2>
           <p>Earth to Jupiter transfer simulation with probe animation and live progress feedback.</p>
         </div>
-        <div className="launchPanel">
-          <div className="missionRoute"><span>Earth</span><i /><span>Jupiter</span></div>
+        <div className="launch-panel">
+          <div className="launch-panel__route"><span>Earth</span><i /><span>Jupiter</span></div>
           <dl>
             <div><dt>Estimated travel time</dt><dd>6 years</dd></div>
             <div><dt>Fuel required</dt><dd>78%</dd></div>
             <div><dt>Signal delay</dt><dd>43 min</dd></div>
           </dl>
-          <div className="progressTrack"><span style={{ width: `${launchProgress}%` }} /></div>
-          <p className="launchStatus">{launchProgress > 0 && launchProgress < 100 ? `launching... ${launchProgress}%` : launchProgress === 100 ? 'arrival flash confirmed' : 'probe standing by'}</p>
-          <button className="launchButton" type="button" onClick={handleLaunch}><Rocket size={18} /> Launch mission</button>
+          <div
+            className="launch-panel__progress"
+            // Dynamic CSS variable: launch progress is live React state and drives only this bar width.
+            style={{ '--launch-progress': `${launchProgress}%` }}
+          >
+            <span />
+          </div>
+          <p className="launch-panel__status">{launchProgress > 0 && launchProgress < 100 ? `launching... ${launchProgress}%` : launchProgress === 100 ? 'arrival flash confirmed' : 'probe standing by'}</p>
+          <button className="launch-panel__button" type="button" onClick={handleLaunch}><Rocket size={18} /> Launch mission</button>
         </div>
       </section>
 
-      <section className="spaceSection" aria-labelledby="signal-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Radio size={16} /> Signal dashboard</p>
+      <section className="space-section" aria-labelledby="signal-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Radio size={16} /> Signal dashboard</p>
           <h2 id="signal-title">Live orbital data.</h2>
           <p>Controls show state management, UI-to-canvas events and realtime scene tuning.</p>
         </div>
-        <div className="signalConsole">
+        <div className="orbital-signal">
           <div className="radar" aria-hidden="true"><span /><span /><span /></div>
-          <div className="signalDashboard">
-            <div className="signalReadout"><span>Signal strength</span><strong>87%</strong><small>stable</small></div>
-            <div className="signalReadout"><span>Star density</span><strong>{Math.round(7410 * (starDensity / 100))}</strong><small>live</small></div>
-            <div className="signalReadout"><span>Active planet</span><strong>{selectedPlanet?.name || 'System'}</strong><small>{selectedPlanet ? 'focus' : 'idle'}</small></div>
-            <div className="signalReadout"><span>Orbit speed</span><strong>{orbitSpeed.toFixed(2)}x</strong><small>tuned</small></div>
+          <div className="orbital-signal__dashboard">
+            <div className="orbital-signal__readout"><span>Signal strength</span><strong>87%</strong><small>stable</small></div>
+            <div className="orbital-signal__readout"><span>Star density</span><strong>{Math.round(7410 * (starDensity / 100))}</strong><small>live</small></div>
+            <div className="orbital-signal__readout"><span>Active planet</span><strong>{selectedPlanet?.name || 'System'}</strong><small>{selectedPlanet ? 'focus' : 'idle'}</small></div>
+            <div className="orbital-signal__readout"><span>Orbit speed</span><strong>{orbitSpeed.toFixed(2)}x</strong><small>tuned</small></div>
           </div>
         </div>
       </section>
 
-      <section className="spaceSection journeySection" aria-labelledby="journey-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Activity size={16} /> Cinematic scroll journey</p>
+      <section className="space-section space-section--journey" aria-labelledby="journey-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Activity size={16} /> Cinematic scroll journey</p>
           <h2 id="journey-title">Camera path story.</h2>
           <p>Scroll blocks describe the route a production version can bind to camera keyframes.</p>
         </div>
-        <div className="journeyList">
+        <div className="journey-list">
           {journey.map(([number, title, body]) => (
             <article key={number}>
               <span>{number}</span>
@@ -257,28 +267,28 @@ export default function ShowcaseSection() {
         </div>
       </section>
 
-      <section className="spaceSection" aria-labelledby="case-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Gauge size={16} /> Technical case study</p>
+      <section className="space-section" aria-labelledby="case-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Gauge size={16} /> Technical case study</p>
           <h2 id="case-title">Built as a real WebGL interface.</h2>
         </div>
-        <div className="caseCards">
+        <div className="case-study">
           {caseCards.map(([title, body]) => (
             <article key={title}>
               <h3>{title}</h3>
               <p>{body}</p>
             </article>
           ))}
-          <div className="flowDiagram">React state to Three.js scene to UI panels to user interaction</div>
+          <div className="case-study__flow">React state to Three.js scene to UI panels to user interaction</div>
         </div>
       </section>
 
-      <section className="spaceSection" aria-labelledby="stack-title">
-        <div className="spaceIntro">
-          <p className="kicker"><Activity size={16} /> Stack constellation</p>
+      <section className="space-section" aria-labelledby="stack-title">
+        <div className="space-section__intro">
+          <p className="eyebrow"><Activity size={16} /> Stack constellation</p>
           <h2 id="stack-title">Technology orbit.</h2>
         </div>
-        <div className="constellationStack">
+        <div className="stack-constellation">
           {stack.map(([title, body]) => (
             <article key={title}>
               <strong>{title}</strong>
@@ -288,13 +298,13 @@ export default function ShowcaseSection() {
         </div>
       </section>
 
-      <footer className="spaceContact" id="contact">
+      <footer className="space-contact" id="contact">
         <div>
-          <p className="kicker"><Mail size={16} /> Contact</p>
+          <p className="eyebrow"><Mail size={16} /> Contact</p>
           <h2>Want to build something cinematic?</h2>
           <p>Frontend developer focused on interactive interfaces, 3D experiences and polished UI systems.</p>
         </div>
-        <div className="ctaRow">
+        <div className="button-group">
           <Button href={mailHref}><Mail size={18} /> Contact me</Button>
           <Button variant="secondary" href={profile.github} target="_blank" rel="noreferrer"><Github size={18} /> View GitHub</Button>
         </div>

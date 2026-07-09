@@ -18,6 +18,8 @@ import CommandCenterScene from '../scene/CommandCenterScene.jsx';
 import SolarPreviewScene from '../scene/SolarPreviewScene.jsx';
 import { mailHref, profile } from '../../data/portfolio.js';
 
+import './HomePage.css';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const buildCards = [
@@ -42,6 +44,17 @@ const techGroups = [
 
 const skills = ['4+ Years', 'Three.js', 'TypeScript', 'React', 'Vue', 'SaaS'];
 const systemChecks = ['System Check', 'Lighting', 'Particles', 'Camera', 'Orbit Engine', 'Ready'];
+const heroAnimatedElements = [
+  '.home-hero',
+  '.home-hero__eyebrow',
+  '.home-hero__title span',
+  '.home-hero__description',
+  '.home-hero__actions .button',
+  '.home-hero__skills',
+  '.home-hero__orbit-status',
+  '.home-hero__visual',
+  '.home-hero__system-status',
+].join(', ');
 
 function useLaunchTransition() {
   const [isLaunching, setIsLaunching] = useState(false);
@@ -68,10 +81,13 @@ export default function HomePage() {
     if (reduceMotion) return undefined;
 
     const context = gsap.context(() => {
-      const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const heroTimeline = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        onComplete: () => gsap.set(heroAnimatedElements, { clearProps: 'all' }),
+      });
       heroTimeline
         .from('.home-hero', { autoAlpha: 0, scale: 0.985, duration: 0.75 })
-        .from('.home-hero__kicker', { autoAlpha: 0, y: 16, duration: 0.45 }, '-=0.35')
+        .from('.home-hero__eyebrow', { autoAlpha: 0, y: 16, duration: 0.45 }, '-=0.35')
         .from('.home-hero__title span', { autoAlpha: 0, y: 34, stagger: 0.08, duration: 0.62 }, '-=0.2')
         .from('.home-hero__description', { autoAlpha: 0, y: 18, duration: 0.5 }, '-=0.25')
         .from('.home-hero__actions .button', { autoAlpha: 0, y: 18, stagger: 0.08, duration: 0.45 }, '-=0.18')
@@ -79,21 +95,14 @@ export default function HomePage() {
         .from('.home-hero__visual', { autoAlpha: 0, x: 28, duration: 0.72 }, '-=0.62')
         .from('.home-hero__system-status', { autoAlpha: 0, y: 18, duration: 0.42 }, '-=0.22');
 
-      gsap.to('.command-scene', {
-        scale: 1.012,
-        duration: 4.5,
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut',
-      });
-
-      gsap.utils.toArray('.featured3d, .landingSection, .launchSequence, .landingContact').forEach((section) => {
+      gsap.utils.toArray('.featured-experience, .landing-section, .launch-sequence, .landing-contact').forEach((section) => {
         gsap.from(section, {
           autoAlpha: 0,
           y: 42,
           scale: 0.985,
           duration: 0.7,
           ease: 'power3.out',
+          onComplete: () => gsap.set(section, { clearProps: 'all' }),
           scrollTrigger: {
             trigger: section,
             start: 'top 82%',
@@ -102,12 +111,13 @@ export default function HomePage() {
         });
       });
 
-      gsap.utils.toArray('.landingCard, .techGroup, .systemChecks span').forEach((card) => {
+      gsap.utils.toArray('.landing-card, .tech-stack__group, .launch-sequence__checks span').forEach((card) => {
         gsap.from(card, {
           autoAlpha: 0,
           y: 24,
           duration: 0.5,
           ease: 'power3.out',
+          onComplete: () => gsap.set(card, { clearProps: 'all' }),
           scrollTrigger: {
             trigger: card,
             start: 'top 88%',
@@ -122,11 +132,11 @@ export default function HomePage() {
 
   return (
     <div ref={pageRef} className="home-page">
-      <div className={`routeVeil ${isLaunching ? 'isActive' : ''}`} aria-hidden="true" />
+      <div className={`home-page__route-veil ${isLaunching ? 'is-active' : ''}`} aria-hidden="true" />
 
       <header id="top" className="home-hero">
         <div className="home-hero__content" aria-labelledby="hero-title">
-          <p className="kicker home-hero__kicker"><Sparkles size={16} /> Frontend Engineer · React · Three.js</p>
+          <p className="eyebrow home-hero__eyebrow"><Sparkles size={16} /> Frontend Engineer · React · Three.js</p>
           <h1 id="hero-title" className="home-hero__title">
             <span>Designing</span>
             <span>interfaces</span>
@@ -134,7 +144,7 @@ export default function HomePage() {
             <span className="home-hero__title-accent">alive.</span>
           </h1>
           <p className="home-hero__description">I build immersive web experiences where interaction, animation and code come together to tell a story.</p>
-          <div className="ctaRow home-hero__actions">
+          <div className="button-group home-hero__actions">
             <button className="button button--primary" type="button" onClick={launch3D}>
               <Rocket size={19} /> Explore 3D Experience
             </button>
@@ -167,9 +177,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="featured3d" aria-labelledby="featured-title">
+      <section className="featured-experience" aria-labelledby="featured-title">
         <div>
-          <p className="kicker">Featured 3D Experience</p>
+          <p className="eyebrow">Featured 3D Experience</p>
           <h2 id="featured-title">Solar Interface System</h2>
           <p>
             A cinematic Three.js experiment inspired by mission control interfaces. Interactive planets,
@@ -179,20 +189,20 @@ export default function HomePage() {
             Launch Experience <ArrowUpRight size={16} />
           </button>
         </div>
-        <button className="solarPreviewButton" type="button" onClick={launch3D} aria-label="Launch Solar Interface System">
+        <button className="featured-experience__preview-button" type="button" onClick={launch3D} aria-label="Launch Solar Interface System">
           <SolarPreviewScene />
           <span>Launch preview</span>
         </button>
       </section>
 
-      <section className="landingSection" id="build">
-        <div className="landingSectionIntro">
-          <p className="kicker">What I Build</p>
+      <section className="landing-section" id="build">
+        <div className="landing-section__intro">
+          <p className="eyebrow">What I Build</p>
           <h2>Interfaces built for real products.</h2>
         </div>
-        <div className="landingCardGrid">
+        <div className="landing-section__card-grid">
           {buildCards.map(([Icon, title, body]) => (
-            <article className="landingCard" key={title}>
+            <article className="landing-card" key={title}>
               <Icon size={24} />
               <h3>{title}</h3>
               <p>{body}</p>
@@ -201,15 +211,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="landingSection" id="experience">
-        <div className="landingSectionIntro">
-          <p className="kicker">Commercial Experience</p>
+      <section className="landing-section" id="experience">
+        <div className="landing-section__intro">
+          <p className="eyebrow">Commercial Experience</p>
           <h2>Built for real users, not only portfolios.</h2>
         </div>
-        <div className="landingCardGrid">
+        <div className="landing-section__card-grid">
           {experienceCards.map(([title, tag, body]) => (
-            <article className="landingCard compact" key={title}>
-              <span className="cardTag">{tag}</span>
+            <article className="landing-card landing-card--compact" key={title}>
+              <span className="landing-card__tag">{tag}</span>
               <h3>{title}</h3>
               <p>{body}</p>
             </article>
@@ -217,14 +227,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="landingSection" id="stack">
-        <div className="landingSectionIntro">
-          <p className="kicker">Technology</p>
+      <section className="landing-section" id="stack">
+        <div className="landing-section__intro">
+          <p className="eyebrow">Technology</p>
           <h2>Frontend toolkit for product systems.</h2>
         </div>
-        <div className="techGrid">
+        <div className="tech-stack">
           {techGroups.map(([group, items]) => (
-            <article className={`techGroup ${group === '3D & Motion' ? 'isFeatured' : ''}`} key={group}>
+            <article className={`tech-stack__group ${group === '3D & Motion' ? 'tech-stack__group--featured' : ''}`} key={group}>
               <h3>{group}</h3>
               <div>
                 {items.map((item) => <span key={item}>{item}</span>)}
@@ -237,9 +247,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="launchSequence">
+      <section className="launch-sequence">
         <div>
-          <p className="kicker">Launch Sequence</p>
+          <p className="eyebrow">Launch Sequence</p>
           <h2>Ready to explore a complete Three.js experience?</h2>
           <p>
             Enter a dedicated interactive solar system built with animated planets,
@@ -249,20 +259,20 @@ export default function HomePage() {
             <Rocket size={18} /> Launch Solar Interface
           </button>
         </div>
-        <div className="systemChecks" aria-hidden="true">
+        <div className="launch-sequence__checks" aria-hidden="true">
           {systemChecks.map((item) => (
             <span key={item}><i /> {item}</span>
           ))}
         </div>
       </section>
 
-      <footer className="landingContact" id="contact">
+      <footer className="landing-contact" id="contact">
         <div>
-          <p className="kicker"><Radio size={16} /> Contact</p>
+          <p className="eyebrow"><Radio size={16} /> Contact</p>
           <h2>Let’s build something memorable.</h2>
           <p>Open to frontend roles, creative engineering projects and interactive web experiences.</p>
         </div>
-        <div className="ctaRow">
+        <div className="button-group">
           <Button variant="secondary" href={profile.github} target="_blank" rel="noreferrer"><Github size={18} /> GitHub</Button>
           <Button href={mailHref}><Mail size={18} /> Email</Button>
           <Button variant="secondary" href="https://t.me/disasterwoman" target="_blank" rel="noreferrer"><Send size={18} /> Telegram</Button>

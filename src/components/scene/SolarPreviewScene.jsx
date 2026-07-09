@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+import './SolarPreviewScene.css';
+
 const planets = [
   { name: 'Mercury', size: 0.08, distance: 0.62, color: '#aaa393', accent: '#5d574c', speed: 1.8 },
   { name: 'Venus', size: 0.13, distance: 0.86, color: '#d89b4d', accent: '#74451f', speed: 1.35 },
@@ -227,5 +229,5 @@ export default function SolarPreviewScene() {
     };
   }, []);
 
-  return <div className="solarPreviewScene" ref={mountRef} aria-hidden="true" />;
+  return <div className="solar-preview-scene" ref={mountRef} aria-hidden="true" />;
 }

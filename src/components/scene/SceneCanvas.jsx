@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+import './SceneCanvas.css';
+
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -258,5 +260,5 @@ export default function SceneCanvas() {
     };
   }, []);
 
-  return <div className="sceneCanvas" ref={mountRef} aria-hidden="true" />;
+  return <div className="ambient-scene" ref={mountRef} aria-hidden="true" />;
 }

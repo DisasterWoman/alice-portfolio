@@ -1,0 +1,689 @@
+.space-hero__content {
+  position: relative;
+  z-index: 2;
+  width: min(520px, 48%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: clamp(22px, 4vw, 44px);
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, rgba(6, 9, 19, 0.86), rgba(6, 9, 19, 0.58));
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.72);
+}
+
+.space-hero__content p:not(.eyebrow) {
+  max-width: 520px;
+  color: rgba(247, 251, 255, 0.84);
+  font-size: 1.04rem;
+  line-height: 1.68;
+}
+.space-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.space-hero__badges span {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: 0 12px;
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+.space-section {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+  padding: var(--section-y) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.space-section__intro {
+  display: grid;
+  gap: 16px;
+}
+
+.space-section__intro p:not(.eyebrow) {
+  color: rgba(247, 251, 255, 0.8);
+  line-height: 1.65;
+}
+
+.orbital-signal__dashboard {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(6, 9, 19, 0.74);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.launch-panel__route {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 14px;
+  align-items: center;
+  font-weight: 950;
+}
+
+.launch-panel__route i {
+  height: 2px;
+  display: block;
+  background: linear-gradient(90deg, var(--cyan), var(--lime), var(--pink));
+  box-shadow: 0 0 18px rgba(42, 248, 255, 0.38);
+}
+
+.launch-panel__button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0 18px;
+  color: #071016;
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.orbital-signal__dashboard {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.orbital-signal__readout {
+  min-width: 0;
+  min-height: 116px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.orbital-signal__readout span {
+  min-height: 44px;
+  display: flex;
+  align-items: flex-start;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.orbital-signal__readout strong {
+  min-width: 0;
+  color: var(--paper);
+  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.orbital-signal__readout small {
+  width: max-content;
+  max-width: 100%;
+  border-radius: var(--radius);
+  padding: 6px 9px;
+  color: #071016;
+  background: var(--cyan);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.space-hero {
+  min-height: calc(74vh - 74px);
+  display: flex;
+  align-items: center;
+  padding: 54px 0 64px;
+}
+
+.space-hero .space-hero__content {
+  width: min(760px, 100%);
+  background:
+    linear-gradient(90deg, rgba(6, 9, 19, 0.86), rgba(6, 9, 19, 0.56)),
+    radial-gradient(circle at 78% 20%, rgba(42, 248, 255, 0.16), transparent 36%);
+}
+
+.mission-control {
+  scroll-margin-top: 92px;
+  min-height: 760px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: stretch;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(120deg, rgba(6, 9, 19, 0.92), rgba(10, 20, 38, 0.72)),
+    radial-gradient(circle at 64% 38%, rgba(42, 248, 255, 0.2), transparent 36%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.mission-control.mission-control--has-selection {
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.38fr);
+}
+
+.mission-control__scene {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 54% 44%, rgba(42, 248, 255, 0.18), transparent 38%),
+    radial-gradient(circle at 82% 22%, rgba(255, 75, 183, 0.13), transparent 28%),
+    #030711;
+}
+
+.mission-control__scene .space-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.mission-control__panel,
+.launch-panel,
+.orbital-signal,
+.case-study,
+.stack-constellation,
+.space-contact {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(6, 9, 19, 0.78);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.mission-control__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.mission-control__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.mission-control__panel-header button {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.mission-control__panel-header button:hover {
+  border-color: rgba(217, 255, 69, 0.58);
+  color: var(--lime);
+}
+
+.mission-control__panel dl,
+.launch-panel dl,
+.planet-card dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.mission-control__panel dl div,
+.launch-panel dl div,
+.planet-card dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mission-control__panel dt,
+.launch-panel dt,
+.planet-card dt {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.mission-control__panel dd,
+.launch-panel dd,
+.planet-card dd {
+  margin: 0;
+  color: var(--paper);
+  font-weight: 950;
+  text-align: right;
+}
+
+.mission-control__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mission-control__actions button,
+.mission-control__tuning button {
+  min-height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.mission-control__actions button:last-child,
+.mission-control__tuning button {
+  color: #071016;
+  border: 0;
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+}
+
+.mission-control__tuning {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(42, 248, 255, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.mission-control__tuning label {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.mission-control__tuning label span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mission-control__tuning b {
+  color: var(--paper);
+}
+
+.mission-control__tuning input[type="range"] {
+  width: 100%;
+  accent-color: var(--lime);
+}
+
+.mission-control__tuning input[type="checkbox"] {
+  accent-color: var(--lime);
+}
+
+.mission-control__toggle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mission-control__toggle-grid label {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.2;
+}
+
+.planet-archive {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.planet-archive__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.planet-archive__controls button {
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: 0 14px;
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.08);
+  font: inherit;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.planet-archive__viewport {
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px 10px 10px;
+  margin: -14px -10px -10px;
+}
+
+.planet-archive__track {
+  display: flex;
+  gap: 14px;
+  touch-action: pan-y pinch-zoom;
+}
+
+.planet-archive__slide {
+  min-width: 0;
+  flex: 0 0 calc((100% - 28px) / 3);
+}
+
+.planet-card {
+  width: 100%;
+  min-height: 330px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  color: var(--paper);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+    radial-gradient(circle at 70% 24%, color-mix(in srgb, var(--planet-color, #2af8ff), transparent 72%), transparent 34%);
+  box-shadow: var(--shadow);
+  transform-style: preserve-3d;
+  transition: transform 180ms ease, border-color 180ms ease;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.planet-card:hover,
+.planet-card.is-active {
+  border-color: rgba(217, 255, 69, 0.7);
+  box-shadow:
+    0 0 0 2px rgba(217, 255, 69, 0.56),
+    var(--shadow);
+  transform: translateY(-3px) rotateX(4deg) rotateY(-3deg);
+}
+
+.planet-card > span {
+  width: max-content;
+  border-radius: var(--radius);
+  padding: 5px 8px;
+  color: #071016;
+  background: var(--lime);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.planet-card i {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.92), transparent 16%),
+    radial-gradient(circle at 48% 46%, var(--planet-color), rgba(0, 0, 0, 0.72));
+  box-shadow: 0 0 34px color-mix(in srgb, var(--planet-color), transparent 34%);
+}
+
+.planet-card strong {
+  font-size: 1.35rem;
+}
+
+.planet-card em,
+.planet-card small {
+  color: var(--muted);
+  font-style: normal;
+  font-weight: 850;
+}
+
+.space-section--launch {
+  grid-template-columns: minmax(260px, 0.42fr) minmax(320px, 0.58fr);
+}
+
+.launch-panel__progress {
+  height: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.launch-panel__progress span {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--lime));
+  box-shadow: 0 0 18px rgba(42, 248, 255, 0.45);
+  width: var(--launch-progress, 0%);
+  transition: width 160ms ease;
+}
+
+.launch-panel__status {
+  margin-top: 12px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.orbital-signal {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(300px, 1fr);
+  gap: 18px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.radar {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.32);
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle, rgba(42, 248, 255, 0.18) 0 1px, transparent 1px 34px),
+    radial-gradient(circle, rgba(42, 248, 255, 0.18), transparent 68%);
+}
+
+.radar span {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 45%;
+  height: 2px;
+  transform-origin: left center;
+  background: var(--lime);
+  animation: radarSweep 3.6s linear infinite;
+}
+
+.journey-list,
+.case-study,
+.stack-constellation {
+  display: grid;
+  gap: 14px;
+}
+
+.journey-list article,
+.case-study article,
+.stack-constellation article {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.journey-list article {
+  display: grid;
+  grid-template-columns: 64px minmax(160px, 0.38fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.journey-list span {
+  color: var(--lime);
+  font-weight: 950;
+}
+
+.journey-list p,
+.case-study p,
+.stack-constellation p,
+.space-contact p {
+  color: rgba(247, 251, 255, 0.78);
+  line-height: 1.6;
+}
+
+.case-study__flow {
+  border: 1px solid rgba(42, 248, 255, 0.28);
+  border-radius: var(--radius);
+  padding: var(--panel-padding);
+  color: var(--lime);
+  background: rgba(42, 248, 255, 0.06);
+  font-weight: 950;
+}
+
+.stack-constellation {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stack-constellation article {
+  min-height: 170px;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.stack-constellation article:hover {
+  border-color: rgba(42, 248, 255, 0.62);
+  transform: translateY(-4px) rotateX(4deg);
+}
+
+.space-contact {
+  display: flex;
+  justify-content: space-between;
+  gap: 26px;
+  align-items: center;
+  margin: var(--section-y) 0 58px;
+  position: relative;
+  overflow: hidden;
+}
+
+.space-contact::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: -12%;
+  width: 42%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), rgba(42, 248, 255, 0.1));
+  box-shadow: 0 0 28px rgba(42, 248, 255, 0.55);
+  transform: rotate(-18deg);
+  animation: cometDrift 8s linear infinite;
+}
+@media (max-width: 980px) {
+  .space-section,
+  .mission-control,
+  .space-section--launch {
+    grid-template-columns: 1fr;
+  }
+
+  .space-canvas {
+    min-height: 520px;
+  }
+
+  .orbital-signal__dashboard,
+  .stack-constellation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mission-control {
+    min-height: auto;
+  }
+
+  .mission-control.mission-control--has-selection {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-control__scene {
+    min-height: 560px;
+  }
+
+  .planet-archive__slide {
+    flex-basis: calc((100% - 14px) / 2);
+  }
+
+  .orbital-signal {
+    grid-template-columns: 1fr;
+  }
+
+  .radar {
+    width: min(260px, 100%);
+  }
+
+  .space-contact {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .space-section {
+    padding: 72px 0;
+  }
+
+  .space-canvas {
+    min-height: 420px;
+  }
+
+  .orbital-signal__dashboard,
+  .stack-constellation {
+    grid-template-columns: 1fr;
+  }
+
+  .planet-card,
+  .orbital-signal__readout {
+    min-height: 104px;
+  }
+
+  .mission-control {
+    padding: 12px;
+  }
+
+  .mission-control__scene {
+    min-height: 430px;
+  }
+
+  .planet-archive__slide {
+    flex-basis: 100%;
+  }
+
+  .mission-control__actions,
+  .mission-control__toggle-grid,
+  .journey-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .space-hero {
+    min-height: auto;
+    padding: 42px 0 56px;
+  }
+}

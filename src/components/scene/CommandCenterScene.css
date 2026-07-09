@@ -1,0 +1,50 @@
+.command-scene {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(42, 248, 255, 0.18);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 58% 42%, rgba(42, 248, 255, 0.22), transparent 28%),
+    radial-gradient(circle at 78% 14%, rgba(217, 255, 69, 0.11), transparent 24%),
+    linear-gradient(135deg, rgba(5, 8, 17, 0.96), rgba(9, 22, 42, 0.72));
+  box-shadow: inset 0 0 80px rgba(42, 248, 255, 0.08), var(--shadow);
+}
+
+.command-scene::before,
+.featured-experience__preview-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.036) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.command-scene canvas,
+.solar-preview-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+  .command-scene {
+    min-height: 520px;
+  }
+  .command-scene {
+    min-height: 390px;
+  }
+.home-hero__visual .command-scene,
+.command-scene {
+  transform-origin: center;
+  min-height: 100%;
+  border-radius: 18px;
+  border-color: rgba(42, 248, 255, 0.16);
+  background:
+    radial-gradient(circle at 52% 47%, rgba(42, 248, 255, 0.25), transparent 27%),
+    radial-gradient(circle at 80% 15%, rgba(125, 112, 255, 0.14), transparent 28%),
+    radial-gradient(circle at 10% 40%, rgba(217, 255, 69, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(3, 7, 15, 0.96), rgba(7, 20, 36, 0.84) 58%, rgba(4, 6, 14, 0.96));
+}

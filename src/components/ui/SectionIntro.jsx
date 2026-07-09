@@ -1,9 +1,11 @@
-import React from 'react';
 
-export default function SectionIntro({ kicker, title, body, icon: Icon }) {
+import React from 'react';
+import './SectionIntro.css';
+
+export default function SectionIntro({ eyebrow, title, body, icon: Icon }) {
   return (
-    <div className="sectionIntro">
-      <p className="kicker">{Icon ? <Icon size={16} /> : null}{kicker}</p>
+    <div className="section-intro">
+      <p className="eyebrow">{Icon ? <Icon size={16} /> : null}{eyebrow}</p>
       <h2>{title}</h2>
       {body ? <p>{body}</p> : null}
     </div>
