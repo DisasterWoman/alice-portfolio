@@ -12,6 +12,19 @@ const panelLayout = [
   { label: 'Stack', meta: 'Tools I use', target: '#stack', color: '#2af8ff', position: [1.68, -0.74, 1], node: [0.98, -0.44, 0.18] },
 ];
 
+const LABEL_FRAME = {
+  x: 73,
+  y: 72,
+  width: 710,
+  height: 154,
+  radius: 30,
+};
+
+const LABEL_SPRITE_SCALE = {
+  width: 1.56,
+  height: 0.6,
+};
+
 function drawSparkle(context, cx, cy, size) {
   context.beginPath();
   context.moveTo(cx, cy - size);
@@ -43,7 +56,12 @@ function makeTextSprite(text, meta, accentColor) {
   canvas.height = 320;
   const context = canvas.getContext('2d');
   context.clearRect(0, 0, canvas.width, canvas.height);
-  const gradient = context.createLinearGradient(52, 54, 980, 250);
+  const gradient = context.createLinearGradient(
+    LABEL_FRAME.x,
+    LABEL_FRAME.y,
+    LABEL_FRAME.x + LABEL_FRAME.width,
+    LABEL_FRAME.y + LABEL_FRAME.height,
+  );
   gradient.addColorStop(0, 'rgba(4, 10, 22, 0.96)');
   gradient.addColorStop(0.72, 'rgba(10, 20, 38, 0.92)');
   gradient.addColorStop(1, 'rgba(4, 10, 22, 0.96)');
@@ -52,19 +70,19 @@ function makeTextSprite(text, meta, accentColor) {
   context.strokeStyle = accentColor;
   context.globalAlpha = 0.7;
   context.lineWidth = 4;
-  context.roundRect(44, 58, 936, 190, 38);
+  context.roundRect(LABEL_FRAME.x, LABEL_FRAME.y, LABEL_FRAME.width, LABEL_FRAME.height, LABEL_FRAME.radius);
   context.fill();
   context.stroke();
   context.globalAlpha = 1;
-  drawSparklesIcon(context, 132, 132);
+  drawSparklesIcon(context, 142, 149);
   context.fillStyle = '#d9ff45';
   const fontSize = text.length > 10 ? 58 : 66;
   context.font = `800 ${fontSize}px Inter, Arial, sans-serif`;
   context.textAlign = 'left';
-  context.fillText(text, 216, 138);
-  context.fillStyle = 'rgba(217, 255, 69, 0.68)';
+  context.fillText(text, 218, 139);
+  context.fillStyle = 'rgba(247, 251, 255, 0.76)';
   context.font = '650 36px Inter, Arial, sans-serif';
-  context.fillText(meta, 216, 184);
+  context.fillText(meta, 218, 183);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -79,7 +97,7 @@ function makeTextSprite(text, meta, accentColor) {
     depthWrite: false,
   });
   const sprite = new THREE.Sprite(material);
-  sprite.scale.set(1.74, 0.58, 1);
+  sprite.scale.set(LABEL_SPRITE_SCALE.width, LABEL_SPRITE_SCALE.height, 1);
   sprite.renderOrder = 20;
   return sprite;
 }
@@ -275,7 +293,6 @@ export default function CommandCenterScene() {
 
       const sprite = makeTextSprite(label, meta, color);
       sprite.position.z = 0.025;
-      sprite.scale.set(1.84, 0.64, 1);
       sprite.userData = { index, label, target };
       sprite.material.opacity = 0;
       group.add(sprite);
