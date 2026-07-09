@@ -168,8 +168,16 @@ export default function CommandCenterScene() {
 
     const resize = () => {
       const { width, height } = mount.getBoundingClientRect();
+      const isMobile = width < 560;
+      const isTablet = width < 760;
+      const sceneScale = isMobile ? 0.62 : isTablet ? 0.7 : 0.8;
+
+      root.scale.setScalar(sceneScale);
+      camera.position.z = isMobile ? 10.4 : isTablet ? 9.8 : 9.2;
+      camera.position.y = isMobile ? 0.78 : 0.95;
       renderer.setSize(width, height, false);
       camera.aspect = width / Math.max(height, 1);
+      camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
     };
     resize();

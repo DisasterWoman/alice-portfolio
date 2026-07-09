@@ -30,21 +30,21 @@
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 980px) {
   .command-scene {
-    min-height: 520px;
+    min-height: 440px;
   }
+}
+
+@media (max-width: 760px) {
   .command-scene {
-    min-height: 390px;
+    min-height: 340px;
   }
-.home-hero__visual .command-scene,
-.command-scene {
-  transform-origin: center;
-  min-height: 100%;
-  border-radius: 18px;
-  border-color: rgba(42, 248, 255, 0.16);
-  background:
-    radial-gradient(circle at 52% 47%, rgba(42, 248, 255, 0.25), transparent 27%),
-    radial-gradient(circle at 80% 15%, rgba(125, 112, 255, 0.14), transparent 28%),
-    radial-gradient(circle at 10% 40%, rgba(217, 255, 69, 0.08), transparent 30%),
-    linear-gradient(135deg, rgba(3, 7, 15, 0.96), rgba(7, 20, 36, 0.84) 58%, rgba(4, 6, 14, 0.96));
+}
+
+@media (max-width: 480px) {
+  .command-scene {
+    min-height: 300px;
+  }
 }
