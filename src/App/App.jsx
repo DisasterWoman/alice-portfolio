@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './components/layout/Header.jsx';
-import HomePage from './components/sections/HomePage.jsx';
-import ShowcaseSection from './components/sections/ShowcaseSection.jsx';
+import Header from '../components/layout/Header/Header.jsx';
+import HomePage from '../features/home/HomePage/HomePage.jsx';
+import ShowcaseSection from '../features/home/ShowcaseSection/ShowcaseSection.jsx';
 
 import './App.css';
 

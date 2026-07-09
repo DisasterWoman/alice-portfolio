@@ -13,10 +13,10 @@ import {
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Button from '../ui/Button.jsx';
-import CommandCenterScene from '../scene/CommandCenterScene.jsx';
-import SolarPreviewScene from '../scene/SolarPreviewScene.jsx';
-import { mailHref, profile } from '../../data/portfolio.js';
+import Button from '../../../components/ui/Button/Button.jsx';
+import CommandCenterScene from '../../../three/CommandCenterScene/CommandCenterScene.jsx';
+import SolarPreviewScene from '../../../three/SolarPreviewScene/SolarPreviewScene.jsx';
+import { mailHref, profile } from '../../../data/portfolio.js';
 
 import './HomePage.css';
 

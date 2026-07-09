@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Activity, Gauge, Github, Mail, Orbit, Radio, Rocket, Satellite, Sparkles, X } from 'lucide-react';
-import ComplexAnimationCanvas from '../scene/ComplexAnimationCanvas.jsx';
-import Button from '../ui/Button.jsx';
-import { mailHref, profile } from '../../data/portfolio.js';
+import ComplexAnimationCanvas from '../../../three/ComplexAnimationCanvas/ComplexAnimationCanvas.jsx';
+import Button from '../../../components/ui/Button/Button.jsx';
+import { mailHref, profile } from '../../../data/portfolio.js';
 
 import './ShowcaseSection.css';
 

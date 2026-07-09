@@ -1,5 +1,5 @@
 import React from 'react';
-import { navItems, profile } from '../../data/portfolio.js';
+import { navItems, profile } from '../../../data/portfolio.js';
 
 import './Header.css';
 
