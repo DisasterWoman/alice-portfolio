@@ -98,11 +98,10 @@ export const coreSphereFragmentShader = `
   void main() {
     vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
     float fresnel = pow(1.0 - max(dot(viewDirection, normalize(vNormal)), 0.0), 2.35);
-    float scan = smoothstep(0.72, 1.0, sin((vWorldPosition.y + uTime * 0.22) * 11.0) * 0.5 + 0.5);
-    float pulse = 0.78 + sin(uTime * 1.7 + vWorldPosition.x * 3.2) * 0.08;
+    float scan = smoothstep(0.82, 1.0, sin((vWorldPosition.y + uTime * 0.12) * 8.0) * 0.5 + 0.5);
     vec3 accent = mix(uMint, uLime, scan * 0.28 + uInteraction * 0.18);
     vec3 color = mix(uDeep, accent, fresnel * 1.18 + scan * 0.12 + vDisplacement * 2.5);
-    float alpha = (0.16 + fresnel * (0.62 + uInteraction * 0.26) + scan * 0.035) * pulse * uOpacity;
+    float alpha = (0.2 + fresnel * (0.58 + uInteraction * 0.14) + scan * 0.018) * uOpacity;
     gl_FragColor = vec4(color, alpha);
   }
 `;

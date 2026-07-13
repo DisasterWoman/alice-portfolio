@@ -72,7 +72,6 @@ export default function OrbitBadge({
     const mouse = mouseRef.current;
     const isActive = activeIndexRef.current === index || focusIndexRef.current === index;
     const activeBoost = isActive ? 1 : 0;
-    const pulse = Math.sin(elapsed * 2.4 + index * 0.9) * 0.5 + 0.5;
     const depth = THREE.MathUtils.clamp((baseLabelPoint.z + 1.2) / 2.5, 0.2, 1);
     const parallax = depth * 0.15;
 
@@ -80,21 +79,21 @@ export default function OrbitBadge({
     labelPoint.x += mouse.x * parallax;
     labelPoint.y += mouse.y * parallax * 0.72;
     bendPoint.copy(surfacePoint).lerp(labelPoint, 0.45);
-    bendPoint.z += 0.22 + pulse * 0.06;
+    bendPoint.z += 0.24;
 
     if (anchorRef.current) {
       anchorRef.current.position.copy(surfacePoint);
-      (anchorRef.current.material as THREE.MeshBasicMaterial).opacity = 0.44 + activeBoost * 0.34 + pulse * 0.08;
+      (anchorRef.current.material as THREE.MeshBasicMaterial).opacity = 0.55 + activeBoost * 0.22;
     }
 
     if (pingRef.current) {
       const travel = (elapsed * 0.52 + index * 0.13) % 1;
       pingRef.current.position.copy(surfacePoint).lerp(labelPoint, travel);
-      (pingRef.current.material as THREE.MeshBasicMaterial).opacity = 0.2 + pulse * 0.5 + activeBoost * 0.22;
+      (pingRef.current.material as THREE.MeshBasicMaterial).opacity = 0.46 + activeBoost * 0.18;
     }
 
     if (htmlRef.current) {
-      htmlRef.current.style.opacity = `${0.72 + activeBoost * 0.18}`;
+      htmlRef.current.style.opacity = `${0.82 + activeBoost * 0.08}`;
     }
   });
 

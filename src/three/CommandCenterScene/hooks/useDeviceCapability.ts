@@ -4,12 +4,11 @@ export type DeviceCapability = {
   quality: number;
   particleCount: number;
   pixelRatio: number;
-  bloom: boolean;
 };
 
 function readDeviceCapability(): DeviceCapability {
   if (typeof window === 'undefined') {
-    return { quality: 0.7, particleCount: 600, pixelRatio: 1.2, bloom: false };
+    return { quality: 0.7, particleCount: 600, pixelRatio: 1.2 };
   }
 
   const cores = navigator.hardwareConcurrency || 4;
@@ -22,7 +21,6 @@ function readDeviceCapability(): DeviceCapability {
     quality: lowPower ? 0.58 : 1,
     particleCount: lowPower ? 520 : 1100,
     pixelRatio: Math.min(window.devicePixelRatio || 1, lowPower ? 1.25 : 1.7),
-    bloom: !lowPower,
   };
 }
 

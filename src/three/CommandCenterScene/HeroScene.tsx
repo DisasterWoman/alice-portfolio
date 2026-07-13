@@ -183,7 +183,7 @@ export default function HeroScene(): React.ReactElement {
             scrollRef={staticScrollRef}
             visibleRef={visibleRef}
           />
-          <group position={[0.5, -0.08, 0]} scale={0.72}>
+          <group position={[0.5, -0.08, 0]} scale={0.99}>
             <CoreSphere
               mouseRef={mouseRef}
               visibleRef={visibleRef}
@@ -205,12 +205,7 @@ export default function HeroScene(): React.ReactElement {
             ))}
           </group>
           <EffectComposer multisampling={0}>
-            <Bloom
-              intensity={capability.bloom ? 0.32 : 0.14}
-              luminanceThreshold={0.72}
-              luminanceSmoothing={0.28}
-              mipmapBlur
-            />
+            <Bloom intensity={0.18} luminanceThreshold={0.86} luminanceSmoothing={0.2} mipmapBlur />
           </EffectComposer>
         </Suspense>
       </Canvas>

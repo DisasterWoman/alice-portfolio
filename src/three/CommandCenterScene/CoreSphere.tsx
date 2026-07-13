@@ -116,11 +116,11 @@ export default function CoreSphere({
     if (innerRef.current) {
       innerRef.current.rotation.y = -elapsed * 0.16;
       innerRef.current.rotation.x = elapsed * 0.11;
-      (innerRef.current.material as THREE.MeshBasicMaterial).opacity = 0.27 + interaction * 0.12;
+      (innerRef.current.material as THREE.MeshBasicMaterial).opacity = 0.3;
     }
 
     if (haloRef.current) {
-      (haloRef.current.material as THREE.MeshBasicMaterial).opacity = (0.045 + interaction * 0.05) * uniforms.uOpacity.value;
+      (haloRef.current.material as THREE.MeshBasicMaterial).opacity = 0.045 * uniforms.uOpacity.value;
     }
   });
 
