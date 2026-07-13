@@ -409,12 +409,10 @@
 .home-hero__visual {
   position: relative;
   min-width: 0;
-  min-height: clamp(560px, 66vh, 760px);
-  margin-right: clamp(-42px, -2.8vw, -12px);
-  transform:
-    translateX(clamp(18px, 2.4vw, 44px))
-    translate3d(calc(var(--cursor-x) * -16px), calc(var(--cursor-y) * -10px), 0);
-  transition: transform 260ms ease-out;
+  min-height: clamp(500px, 62vh, 660px);
+  margin-right: 0;
+  transform: none;
+  transition: none;
 }
 
 .command-scene {
@@ -431,7 +429,7 @@
 
 .home-hero__visual .command-scene {
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -745,17 +743,6 @@
   }
 }
 
-@keyframes commandSceneBreathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.012);
-  }
-}
-
 @keyframes aliveGradient {
   0%,
   100% {
@@ -767,15 +754,8 @@
   }
 }
 
-.home-hero__visual .command-scene {
-  animation: commandSceneBreathe 9s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .home-hero__title-accent:hover {
-    animation: none;
-  }
-  .home-hero__visual .command-scene {
     animation: none;
   }
 
@@ -839,8 +819,8 @@
 
   .home-hero__visual {
     min-height: clamp(420px, 50vh, 560px);
-    margin-right: -18px;
-    transform: translateX(18px);
+    margin-right: 0;
+    transform: none;
   }
 
   .home-hero__visual .command-scene {
@@ -930,7 +910,7 @@
   }
 
   .home-hero__visual {
-    min-height: 100%;
+    min-height: clamp(420px, 50vh, 560px);
   }
 }
 @media (max-width: 760px) {
