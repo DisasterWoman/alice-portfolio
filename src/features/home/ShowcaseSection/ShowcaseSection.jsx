@@ -4,6 +4,7 @@ import { Activity, Gauge, Github, Mail, Orbit, Radio, Rocket, Satellite, Sparkle
 import ComplexAnimationCanvas from '../../../three/ComplexAnimationCanvas/ComplexAnimationCanvas.jsx';
 import Button from '../../../components/ui/Button/Button.jsx';
 import { mailHref, profile } from '../../../data/portfolio.js';
+import { CosmicBackground } from '../HomePage/HomePage.components';
 
 import './ShowcaseSection.css';
 
@@ -109,7 +110,8 @@ export default function ShowcaseSection() {
   };
 
   return (
-    <>
+    <div className="showcase-page">
+      <CosmicBackground />
       <section className="space-hero" aria-label="Cinematic space control room intro">
         <div className="space-hero__content">
           <p className="eyebrow"><Orbit size={16} /> NASA-style dashboard</p>
@@ -309,6 +311,6 @@ export default function ShowcaseSection() {
           <Button variant="secondary" href={profile.github} target="_blank" rel="noreferrer"><Github size={18} /> View GitHub</Button>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

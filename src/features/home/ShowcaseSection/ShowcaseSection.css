@@ -599,6 +599,181 @@
   transform: rotate(-18deg);
   animation: cometDrift 8s linear infinite;
 }
+
+.showcase-page {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding-bottom: 8px;
+}
+
+.space-hero {
+  position: relative;
+  min-height: min(620px, calc(74svh - 92px));
+  margin: 6px 0 58px;
+  padding: clamp(34px, 4.8vw, 66px) 0;
+  background:
+    radial-gradient(circle at 72% 44%, rgba(42, 248, 255, 0.18), transparent 34%),
+    radial-gradient(circle at 34% 70%, rgba(119, 255, 205, 0.06), transparent 30%);
+}
+
+.space-hero__content,
+.space-hero .space-hero__content {
+  width: min(760px, 100%);
+  max-width: 760px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  transform: translateX(clamp(12px, 1.4vw, 26px));
+}
+
+.space-hero__content h1 {
+  max-width: 700px;
+  font-size: clamp(3.5rem, 5.2vw, 5.85rem);
+  line-height: 0.94;
+}
+
+.space-hero__content p:not(.eyebrow),
+.space-section__intro p:not(.eyebrow),
+.journey-list p,
+.case-study p,
+.stack-constellation p,
+.space-contact p {
+  color: rgba(236, 244, 255, 0.76);
+}
+
+.space-hero__badges span {
+  border-color: rgba(42, 248, 255, 0.16);
+  border-radius: 13px;
+  background: linear-gradient(180deg, rgba(42, 248, 255, 0.08), rgba(255, 255, 255, 0.028));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.mission-control,
+.mission-control__panel,
+.launch-panel,
+.orbital-signal,
+.case-study,
+.stack-constellation,
+.space-contact {
+  border-color: rgba(42, 248, 255, 0.13);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 72% 44%, rgba(42, 248, 255, 0.15), transparent 32%),
+    radial-gradient(circle at 14% 82%, rgba(217, 255, 69, 0.07), transparent 24%),
+    linear-gradient(135deg, rgba(8, 17, 31, 0.86), rgba(4, 9, 18, 0.76));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.mission-control {
+  min-height: 780px;
+  margin-bottom: 8px;
+  padding: clamp(14px, 1.6vw, 20px);
+}
+
+.mission-control__scene {
+  min-height: 740px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 52% 47%, rgba(42, 248, 255, 0.25), transparent 27%),
+    radial-gradient(circle at 80% 15%, rgba(125, 112, 255, 0.14), transparent 28%),
+    radial-gradient(circle at 10% 40%, rgba(217, 255, 69, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(3, 7, 15, 0.96), rgba(7, 20, 36, 0.84) 58%, rgba(4, 6, 14, 0.96));
+}
+
+.mission-control__panel,
+.launch-panel,
+.orbital-signal,
+.case-study,
+.stack-constellation {
+  border-radius: 18px;
+  padding: clamp(20px, 2.4vw, 28px);
+}
+
+.space-section {
+  position: relative;
+  border-top: 0;
+  padding: 96px 0 0;
+}
+
+.space-section::before {
+  content: "";
+  position: absolute;
+  top: 44px;
+  left: clamp(18px, 10vw, 140px);
+  width: min(560px, 52vw);
+  height: 1px;
+  pointer-events: none;
+  opacity: 0.18;
+  background: linear-gradient(90deg, transparent, rgba(42, 248, 255, 0.7), transparent);
+}
+
+.space-section__intro {
+  gap: 12px;
+  max-width: 760px;
+}
+
+.space-section__intro h2 {
+  max-width: 660px;
+}
+
+.planet-card,
+.journey-list article,
+.case-study article,
+.stack-constellation article,
+.orbital-signal__readout,
+.mission-control__tuning,
+.mission-control__toggle-grid label {
+  border-color: rgba(42, 248, 255, 0.13);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(42, 248, 255, 0.1), transparent 34%),
+    linear-gradient(145deg, rgba(9, 18, 33, 0.82), rgba(5, 10, 19, 0.7));
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.planet-card > span,
+.orbital-signal__readout small {
+  color: #071016;
+  background: var(--lime);
+}
+
+.planet-archive__controls button,
+.mission-control__panel-header button,
+.mission-control__actions button,
+.mission-control__tuning button {
+  border-radius: 13px;
+}
+
+.launch-panel__button,
+.mission-control__actions button:last-child,
+.mission-control__tuning button {
+  background:
+    linear-gradient(135deg, #b8ff3f 0%, #79ff92 34%, #49f4cf 66%, var(--cyan) 100%),
+    #77ffd8;
+  box-shadow: 0 18px 46px rgba(42, 248, 255, 0.2), 0 0 30px rgba(184, 255, 63, 0.1);
+}
+
+.space-contact {
+  margin: 96px 0 56px;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.space-contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at 58% 48%, black, transparent 74%);
+  opacity: 0.42;
+}
 @media (max-width: 980px) {
   .space-section,
   .mission-control,
