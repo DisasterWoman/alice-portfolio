@@ -196,6 +196,7 @@ const atmosphereVertexShader = /* glsl */ `
     float angle = atan(objectNormal.y, objectNormal.x);
     float flow = uTime * 0.34;
     float plasmaNoise = fbm2(vec2(angle * 2.4 + flow * 0.32, objectNormal.y * 3.0 - flow * 0.18));
+    float strandNoise = fbm2(vec2(angle * 15.0 - flow * 0.24, objectNormal.y * 8.0 + flow * 0.16));
     float slowPulse = 0.78 + 0.22 * sin(angle * 3.0 + flow * 0.72);
     float tongues = max(
       max(
@@ -208,9 +209,10 @@ const atmosphereVertexShader = /* glsl */ `
       )
     );
     float edgeBias = 0.68 + smoothstep(0.18, 0.96, abs(objectNormal.x)) * 0.18 + smoothstep(0.24, 0.96, abs(objectNormal.y)) * 0.14;
-    vPlasmaTongue = tongues * edgeBias * slowPulse * smoothstep(0.22, 0.8, plasmaNoise) * (1.0 + uFireBoost * 0.85);
+    float tornStrands = smoothstep(0.42, 0.92, plasmaNoise + strandNoise * 0.48);
+    vPlasmaTongue = pow(tongues, 0.88) * edgeBias * slowPulse * tornStrands * (1.0 + uFireBoost * 0.2);
 
-    vec3 displaced = position + objectNormal * (vPlasmaTongue * (0.108 + uFireBoost * 0.07));
+    vec3 displaced = position + objectNormal * (vPlasmaTongue * (0.074 + uFireBoost * 0.016));
     vWorldNormal = normalize(normalMatrix * objectNormal);
     vec4 worldPosition = modelMatrix * vec4(displaced, 1.0);
     vWorldPosition = worldPosition.xyz;
@@ -261,12 +263,14 @@ const atmosphereFragmentShader = /* glsl */ `
     float edgeFlicker = 0.88 + 0.12 * sin(normalDirection.y * 12.0 + normalDirection.x * 7.0 + uTime * 0.36);
     float tornEdge = fbm2(vec2(angle * 4.8 + uTime * 0.16, normalDirection.y * 7.0 - uTime * 0.08));
     float fineTear = fbm2(vec2(angle * 13.0 - uTime * 0.1, normalDirection.x * 11.0 + uTime * 0.07));
-    float raggedMask = smoothstep(0.34, 0.82, tornEdge + fineTear * 0.38 + vPlasmaTongue * 0.85);
-    float thinRim = fresnel * (0.08 + edgeSide * 0.34 + topSide * 0.16) * edgeFlicker * raggedMask;
-    float attachedFlame = fresnel * smoothstep(0.035, 0.6, vPlasmaTongue);
-    vec3 color = mix(vec3(1.0, 0.22, 0.02), vec3(1.0, 0.78, 0.16), smoothstep(0.24, 0.9, fresnel + attachedFlame));
-    float alpha = thinRim * (0.58 + uFireBoost * 0.22) + attachedFlame * (0.88 + uFireBoost * 0.55);
-    if (alpha < 0.018) discard;
+    float strandCut = fbm2(vec2(angle * 18.0 - uTime * 0.2, normalDirection.y * 10.0 + uTime * 0.12));
+    float raggedMask = smoothstep(0.5, 0.96, tornEdge + fineTear * 0.46 + strandCut * 0.34 + vPlasmaTongue * 0.54);
+    float flameCore = smoothstep(0.1, 0.72, vPlasmaTongue) * raggedMask;
+    float thinRim = fresnel * (0.05 + edgeSide * 0.22 + topSide * 0.08) * edgeFlicker * raggedMask;
+    float attachedFlame = fresnel * flameCore;
+    vec3 color = mix(vec3(1.0, 0.18, 0.018), vec3(1.0, 0.62, 0.08), smoothstep(0.22, 0.86, fresnel + attachedFlame));
+    float alpha = thinRim * (0.4 + uFireBoost * 0.04) + attachedFlame * (0.54 + uFireBoost * 0.1);
+    if (alpha < 0.048) discard;
     gl_FragColor = vec4(color, alpha);
   }
 `;
@@ -282,9 +286,9 @@ const particleVertexShader = /* glsl */ `
   void main() {
     float drift = fract(uTime * 0.025 + aSeed);
     vec3 radial = normalize(position);
-    vec3 animatedPosition = position + radial * drift * (0.16 + uFireBoost * 0.1);
+    vec3 animatedPosition = position + radial * drift * (0.15 + uFireBoost * 0.04);
     float fade = (1.0 - drift) * smoothstep(0.34, 0.0, aDistance);
-    vAlpha = fade * (0.44 + 0.56 * sin(aSeed * 31.0 + uTime * 0.35)) * (1.0 + uFireBoost * 0.8);
+    vAlpha = fade * (0.44 + 0.56 * sin(aSeed * 31.0 + uTime * 0.35)) * (1.0 + uFireBoost * 0.24);
     vec4 mvPosition = modelViewMatrix * vec4(animatedPosition, 1.0);
     gl_PointSize = aSize * vAlpha * (260.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
@@ -455,7 +459,7 @@ export default function HeroSunScene() {
       const pointerY = event.clientY - rect.top;
       const distance = Math.hypot(pointerX - sunX, pointerY - sunY);
       const hoverRadius = Math.min(rect.width, rect.height) * 0.28;
-      targetFireBoost = THREE.MathUtils.clamp(1 - distance / hoverRadius, 0, 1);
+      targetFireBoost = THREE.MathUtils.clamp(1 - distance / hoverRadius, 0, 0.42);
     };
 
     const handlePointerLeave = () => {
@@ -468,7 +472,7 @@ export default function HeroSunScene() {
       sunUniforms.uTime.value = elapsed;
       atmosphereUniforms.uTime.value = elapsed;
       coronaUniforms.uTime.value = elapsed;
-      fireBoost += (targetFireBoost - fireBoost) * 0.055;
+      fireBoost += (targetFireBoost - fireBoost) * 0.04;
       atmosphereUniforms.uFireBoost.value = fireBoost;
       coronaUniforms.uFireBoost.value = fireBoost;
 
