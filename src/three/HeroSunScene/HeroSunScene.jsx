@@ -7,6 +7,7 @@ import './HeroSunScene.css';
 const sunVertexShader = /* glsl */ `
   uniform float uTime;
   varying vec2 vSunUv;
+  varying vec3 vSunObjectPosition;
   varying vec3 vSunWorldPosition;
   varying vec3 vSunNormal;
 
@@ -18,9 +19,10 @@ const sunVertexShader = /* glsl */ `
 
   void main() {
     vSunUv = uv;
+    vSunObjectPosition = normalize(position);
     vSunNormal = normalize(normalMatrix * normal);
 
-    float turbulence = wave(position) * 0.028;
+    float turbulence = wave(position * 1.23 + vec3(uTime * 0.012, -uTime * 0.009, uTime * 0.011)) * 0.012;
     vec3 displaced = position + normal * turbulence;
     vSunWorldPosition = (modelMatrix * vec4(displaced, 1.0)).xyz;
     csm_Position = displaced;
@@ -30,6 +32,7 @@ const sunVertexShader = /* glsl */ `
 const sunFragmentShader = /* glsl */ `
   uniform float uTime;
   varying vec2 vSunUv;
+  varying vec3 vSunObjectPosition;
   varying vec3 vSunWorldPosition;
   varying vec3 vSunNormal;
 
@@ -119,35 +122,66 @@ const sunFragmentShader = /* glsl */ `
     return total;
   }
 
-  void main() {
-    vec3 p = normalize(vSunWorldPosition) * 2.1;
-    float slow = uTime * 0.06;
-    float cells = fbm(p * 2.7 + vec3(slow, -slow * 0.72, slow * 1.28));
-    float veins = fbm(p * 6.2 + vec3(-uTime * 0.12, uTime * 0.09, uTime * 0.04));
-    float heat = smoothstep(-0.48, 0.78, cells + veins * 0.46);
+  float ridge(float value) {
+    return 1.0 - abs(value * 2.0 - 1.0);
+  }
 
+  void main() {
+    vec3 surfacePosition = normalize(vSunObjectPosition);
+    float largeTime = uTime * 0.014;
+    float mediumTime = uTime * 0.026;
+    float fineTime = uTime * 0.038;
+
+    vec3 slowCurl = vec3(
+      fbm(surfacePosition * 1.45 + vec3(largeTime, -largeTime * 0.48, largeTime * 0.62)),
+      fbm(surfacePosition * 1.7 + vec3(-largeTime * 0.42, largeTime * 0.68, -largeTime * 0.36)),
+      fbm(surfacePosition * 1.3 + vec3(largeTime * 0.34, largeTime * 0.28, -largeTime * 0.58))
+    );
+    vec3 flowPosition = surfacePosition * 2.25 + (slowCurl - 0.5) * 1.18;
+    float riverA = fbm(flowPosition + vec3(largeTime * 0.6, -largeTime * 0.38, largeTime * 0.44)) * 0.5 + 0.5;
+    float riverB = fbm(flowPosition * 1.48 + vec3(-largeTime * 0.34, largeTime * 0.52, -largeTime * 0.26)) * 0.5 + 0.5;
+    float largePlasma = smoothstep(0.18, 0.9, riverA * 0.62 + riverB * 0.38);
+
+    float warpA = fbm(surfacePosition * 2.7 + slowCurl * 0.72 + vec3(mediumTime * 0.46, -mediumTime * 0.68, mediumTime * 0.34));
+    float warpB = fbm(surfacePosition * 3.2 + vec3(warpA * 0.5 - mediumTime * 0.34, mediumTime * 0.44, -warpA * 0.28));
+    vec3 warpedPosition = surfacePosition * 4.1 + vec3(warpA, warpB, warpA - warpB) * 0.64 + slowCurl * 0.34;
+    float mediumPlasma = fbm(warpedPosition + vec3(-mediumTime * 0.44, mediumTime * 0.36, mediumTime * 0.24)) * 0.5 + 0.5;
+    float activeFlow = smoothstep(0.54, 0.86, ridge(mediumPlasma) * 0.58 + largePlasma * 0.42);
+
+    float fineNoise = fbm(surfacePosition * 13.0 + vec3(fineTime * 0.6, -fineTime * 0.46, fineTime * 0.36) + slowCurl * 0.28) * 0.5 + 0.5;
+    float granules = smoothstep(0.48, 0.78, fineNoise) * 0.28;
+    float darkChannels = (1.0 - smoothstep(0.28, 0.6, fineNoise)) * 0.22;
+    float activeRegions = smoothstep(0.82, 0.96, mediumPlasma * 0.72 + largePlasma * 0.28);
+    float coolerRegions = 1.0 - smoothstep(0.16, 0.42, largePlasma + mediumPlasma * 0.18);
+    float sunspots = smoothstep(0.68, 0.9, coolerRegions * (1.0 - mediumPlasma));
+    float plasmaValue = clamp(largePlasma * 0.6 + activeFlow * 0.25 + granules * 0.15 - darkChannels * 0.16 - sunspots * 0.22, 0.0, 1.0);
+
+    vec3 deep = vec3(0.46, 0.055, 0.012);
     vec3 ember = vec3(0.7, 0.13, 0.02);
     vec3 orange = vec3(1.0, 0.34, 0.045);
     vec3 gold = vec3(1.0, 0.66, 0.12);
-    vec3 whiteHot = vec3(1.0, 0.9, 0.32);
-    vec3 color = mix(ember, orange, heat);
-    color = mix(color, gold, smoothstep(0.44, 0.88, heat));
-    color = mix(color, whiteHot, smoothstep(0.86, 1.0, heat + veins * 0.12));
+    vec3 whiteHot = vec3(1.0, 0.88, 0.38);
+    vec3 color = mix(deep, ember, smoothstep(0.06, 0.32, plasmaValue));
+    color = mix(color, orange, smoothstep(0.28, 0.58, plasmaValue));
+    color = mix(color, gold, smoothstep(0.68, 0.9, plasmaValue) * 0.72);
+    color = mix(color, whiteHot, activeRegions * smoothstep(0.74, 0.96, plasmaValue) * 0.22);
+    color = mix(color, deep, sunspots * 0.28);
+    color -= vec3(0.12, 0.024, 0.008) * darkChannels;
 
     vec3 viewDirection = normalize(cameraPosition - vSunWorldPosition);
     vec3 normalDirection = normalize(vSunNormal);
     vec3 lightDirection = normalize(vec3(0.78, 0.28, 0.36));
     float sphereShade = smoothstep(-0.5, 0.78, dot(normalDirection, lightDirection));
     float limbShade = smoothstep(-0.1, 0.92, dot(normalDirection, viewDirection));
-    float shadow = mix(0.34, 1.42, sphereShade) * mix(0.58, 1.0, limbShade);
-    float rim = pow(1.0 - max(dot(viewDirection, normalDirection), 0.0), 4.6);
-    float localHeat = smoothstep(0.46, 0.92, veins + cells * 0.44);
+    float shadow = mix(0.38, 1.32, sphereShade) * mix(0.7, 1.0, limbShade);
+    float rim = pow(1.0 - max(dot(viewDirection, normalDirection), 0.0), 3.7);
+    float localHeat = smoothstep(0.62, 0.94, activeRegions + activeFlow * 0.32 + granules * 0.08);
     color = color * shadow;
-    color += vec3(1.0, 0.68, 0.08) * rim * 0.42;
-    color += vec3(1.0, 0.46, 0.055) * localHeat * 0.3 * sphereShade;
+    color += vec3(1.0, 0.63, 0.08) * rim * 0.28;
+    color += vec3(1.0, 0.43, 0.05) * localHeat * 0.18 * sphereShade;
 
     csm_DiffuseColor = vec4(color, 1.0);
-    csm_Emissive = color * 0.78;
+    csm_Emissive = color * (0.68 + activeRegions * 0.22 + rim * 0.1);
     csm_Roughness = 0.86;
     csm_Metalness = 0.0;
   }
