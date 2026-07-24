@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Activity, Gauge, Github, Mail, Orbit, Radio, Rocket, Satellite, Sparkles, X } from 'lucide-react';
 import ComplexAnimationCanvas from '../../../three/ComplexAnimationCanvas/ComplexAnimationCanvas.jsx';
+import HeroSunScene from '../../../three/HeroSunScene/HeroSunScene.jsx';
 import Button from '../../../components/ui/Button/Button.jsx';
 import { mailHref, profile } from '../../../data/portfolio.js';
 import { CosmicBackground } from '../HomePage/HomePage.components';
@@ -125,6 +126,9 @@ export default function ShowcaseSection() {
             <span>mission planner</span>
             <span>live signal UI</span>
           </div>
+        </div>
+        <div className="space-hero__sun">
+          <HeroSunScene />
         </div>
       </section>
 
